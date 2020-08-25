@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/
+-->
+
+<xwikidoc version="1.1">
+  <web>PhenoTips</web>
+  <name>ChartServiceMacros</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <creationDate>1401822209000</creationDate>
+  <parent>PhenoTips.ChartService</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1401822209000</date>
+  <contentUpdateDate>1401822209000</contentUpdateDate>
+  <version>1.1</version>
+  <title/>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>true</hidden>
+  <content>{{velocity output="false"}}
+#macro (_measurementCharts $options)
+## ---------------------------------------------------------
+## Initialization of 'global' vars
+## ---------------------------------------------------------
+#set ($measurements = {})
+#set ($ageLimits = {})
+#foreach ($measurementName in $services.measurements.getAvailableMeasurementNames())
+  #set ($discard = $measurements.put($measurementName, []))
+  #set ($discard = $ageLimits.put($measurementName, {'max': -1, 'min': 100000}))
+#end
+#set ($sex = false)
+#set ($c = $xwiki.getDocument('PhenoTips.ChartGenerator').getContent())
+#set ($service = $xwiki.getDocument('PhenoTips.ChartService'))
+##
+##
+## ---------------------------------------------------------
+## Build measurements data from objects
+## ---------------------------------------------------------
+#macro (_buildMeasurementsFromObjects $targetClassName $obj)
+  #if (!$obj.getProperty('date_of_birth').value)
+    #break
+  #end
+  #macro (_updateMeasurements $measurements $o $measurementName $age)
+    #if ("$!{o.getProperty($measurementName).value}" != '')
+      #if (!($ageLimits.get($measurementName).min &lt;= $age))
+        #set ($ageLimits.get($measurementName).min = $age)
+      #end
+      #if (!($ageLimits.get($measurementName).max &gt;= $age))
+        #set ($ageLimits.get($measurementName).max = $age)
+      #end
+      #set ($discard = $measurements.add({'a': $age, 'x' : $o.getProperty($measurementName).value}))
+    #end
+  #end
+  #foreach ($o in $doc.getObjects($targetClassName))
+    #set ($age = $o.getProperty('age').value)
+    #if ($age &gt;= 0)
+      #foreach ($measurementName in $services.measurements.getAvailableMeasurementNames())
+        #_updateMeasurements($measurements.get($measurementName) $o $measurementName $age)
+      #end
+    #end
+  #end
+  #set ($sex = $obj.getProperty('gender').value != 'F')
+#end
+##
+##
+## ---------------------------------------------------------
+## Build measurements data from request
+## ---------------------------------------------------------
+#macro (_buildMeasurementsFromRequest)
+  #macro (_buildMeasurementFromRequest $measurements $measurementName)
+    #foreach ($m in $request.getParameterValues($measurementName))
+      #if ("$!{m}" != '')
+        #set ($age = $mathtool.toDouble($ages.get($foreach.index)))
+        #if ("$!age" != '')
+          #if (!($ageLimits.get($measurementName).min &lt;= $age))
+            #set ($ageLimits.get($measurementName).min = $age)
+          #end
+          #if (!($ageLimits.get($measurementName).max &gt;= $age))
+            #set ($ageLimits.get($measurementName).max = $age)
+          #end
+          #set ($discard = $measurements.add({'a': $age, 'x' : $mathtool.toDouble($m)}))
+        #end
+      #end
+    #end
+  #end
+  #set ($ages = $request.getParameterValues('a'))
+  #if ("$!{ages}" != "")
+    #foreach ($measurementName in $services.measurements.getAvailableMeasurementNames())
+      #_buildMeasurementFromRequest($measurements.get($measurementName) $measurementName)
+    #end
+  #end
+  #set ($sex = ($request.getParameter('s') != 'F'))
+#end
+##
+##
+## ---------------------------------------------------------
+## Detect compatible image "format" based on the current browser
+## ---------------------------------------------------------
+#macro(_detectChartFormat)
+  #if ($request.getHeader('User-Agent').matches('.*MSIE\s[6-8]\..*'))
+    #set($format = 'raster')
+  #else
+    #set($format = 'vector')
+  #end
+$format##
+#end
+##
+##
+## ---------------------------------------------------------
+## Generate charts for a specific measurement
+## ---------------------------------------------------------
+#macro (_generateCharts $measurements $measurementName)
+  #if (!$measurements.isEmpty())
+    #set ($chartConfigurations = [])
+    #foreach ($chartConfiguration in $services.measurements.get($measurementName).getChartsConfigurations())
+      #if ($chartConfiguration.lowerAgeLimit &lt;= $ageLimits.get($measurementName).min)
+        #set ($chartConfigurations = [])
+      #end
+      #set ($discard = $chartConfigurations.add($chartConfiguration))
+      #if ($chartConfiguration.upperAgeLimit &gt; $ageLimits.get($measurementName).max)
+        #break
+      #end
+    #end
+    #foreach ($chartConfiguration in $chartConfigurations)
+      #_generateChart($measurements, $chartConfiguration)
+    #end
+  #end
+#end
+##
+##
+## ---------------------------------------------------------
+## Generate chart for a specific measurement and age span
+## ---------------------------------------------------------
+#macro (_generateChart $measurements $chartConfiguration)
+  #if (!$measurements.isEmpty())
+    #set ($svg = "#evaluate($c)")
+    #set ($queryString = "n=${chartConfiguration.measurementType}#if(!$sex)&amp;s=F#end")
+    #foreach ($m in $measurements)
+      #if ($m.a &gt;= $chartConfiguration.lowerAgeLimit &amp;&amp; $m.a &lt; $chartConfiguration.upperAgeLimit)
+        #set ($queryString = "${queryString}&amp;a=${m.a}&amp;${chartConfiguration.measurementType}=${m.x}")
+      #end
+    #end
+    #if ($options.format == 'raster' || "#_detectChartFormat()" == 'raster')
+      #set ($svg = $svg.replaceAll('\{\{/?html.*?}}', '').trim())
+      #set ($src = $xwiki.svg.getSVGImageURL($svg, $chartHeight, $chartWidth))
+    #else
+      #set ($src = $service.getURL('get', "${queryString}&amp;standalone=1"))
+    #end
+    #if ($options.standalone)
+      #if ($options.format == 'raster')
+        $response.sendRedirect($src)
+      #elseif($doc != $service || $xcontext.action != 'get')
+        $response.sendRedirect($service.getURL('get', $queryString))
+      #else
+        $response.setContentType('text/html')
+        ((($svg)))
+      #end
+    #else
+      #if ($options.format == 'raster' || "#_detectChartFormat()" == 'raster')
+        #set ($img = "&lt;img style='width:100%' title='$chartConfiguration.chartTitle' src='$src'/&gt;")
+      #else
+        #set ($img = $svg.replaceAll('\{\{/?html.*?}}', '').trim())
+      #end
+      #if ($options.link)
+        {{html clean="false"}}&lt;a target="_blank" href="$src" class="chart-wrapper"&gt;$img&lt;/a&gt;{{/html}}##
+      #elseif ($options.fullscreen || $xcontext.action == 'export')
+        {{html clean="false"}}&lt;div style="width:100%;"&gt;$img&lt;/div&gt;{{/html}}##
+      #else
+        {{html clean="false"}}&lt;div class="chart-wrapper"&gt;$img&lt;/div&gt;{{/html}}##
+      #end
+    #end
+  #end
+#end
+##
+##
+##
+## ---------------------------------------------------------
+## Decide which method to use for building measurement data
+## ---------------------------------------------------------
+#if ($options.targetClassName &amp;&amp; $options.obj)
+  #_buildMeasurementsFromObjects($options.targetClassName $options.obj)
+#else
+  #_buildMeasurementsFromRequest()
+#end
+## ---------------------------------------------------------
+## Decide what charts to display and in which format
+## ---------------------------------------------------------
+#if ($options.chartName)
+  #_generateCharts($measurements.get($options.chartName), $options.chartName)
+#else
+  ## ---------------------------------------------------------
+  ## Generate all the charts for all the available data
+  ## ---------------------------------------------------------
+  #foreach ($measurementName in $services.measurements.getAvailableMeasurementNames())
+    #_generateCharts($measurements.get($measurementName), $measurementName)
+  #end
+#end
+##
+## ---------------------------------------------------------
+## All done
+## ---------------------------------------------------------
+#end## macro measurementCharts
+{{/velocity}}</content>
+</xwikidoc>

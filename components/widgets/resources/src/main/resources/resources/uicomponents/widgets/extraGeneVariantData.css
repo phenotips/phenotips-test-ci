@@ -1,0 +1,207 @@
+#template('colorThemeInit.vm')
+
+.gene-table td.gene, .gene-table td.row-count, .gene-table td.variant {
+  width: 1%;
+  white-space: nowrap;
+  padding-bottom: 1em;
+}
+.viewbody .gene-table td.gene.custom-entry {
+  white-space: normal;
+}
+.gene-table td.gene.Status, .gene-table td.gene.Strategy {
+  min-width: 200px;
+}
+.editbody td.gene.Strategy {
+  min-width: 235px;
+}
+.gene-table td.gene.Comments, .gene-table td.variant.moreinfo {
+  width: auto;
+  white-space: normal;
+}
+.variant-row-count.variant, .extradata-list td.gene, .variant.variant-default-input {
+  text-align: left;
+}
+.gene-input-label{
+  display: inline;
+  padding-right: 5px;
+}
+.xHelpButton.gene-info {
+  padding-top: 5px;
+  padding-left: 10px;
+}
+.suggested.suggest-gene.gene-name {
+  width : 210px;
+}
+.gene-table td, .gene-table th {
+  vertical-align: top;
+  border-left: 0 none;
+  border-right: 0 none;
+  border-bottom: 0 none;
+}
+.gene-table-borded td, .gene-table-borded th {
+  border: 1px solid #F3F3F3;
+  border-left: 1px solid #FFFFFF;
+  border-right: 1px solid #FFFFFF;
+}
+.gene-table td table {
+  margin: 0 !important;
+}
+.gene-table th {
+  border-bottom: 0 none;
+  border-top: 0 none;
+}
+.gene-table td table td{
+  border: 0 none !important;
+}
+.gene-table td.pseudoindent {
+  border: 0 none !important;
+}
+.gene-table td.variant, .gene-table th.variant {
+  font-size: 87%;
+  background: #def;
+  position: relative;
+}
+.gene-table, .gene-table tr, .gene-table th {
+  position: relative;
+}
+.gene-table .variant-moreinfo-table td {
+  vertical-align: baseline;
+}
+.zygosity select {
+   margin-right: 20px;
+}
+.moreinfo-view {
+  display: inline-block;
+  background-color: #FFF;
+  margin: 3px;
+  border-radius: 4px;
+  opacity: .9;
+}
+.gene-table .variant-title:before {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  content: "";
+  display: block;
+  border: 10px solid transparent;
+  border-bottom: 15px solid #def;
+  border-top: 0 none;
+}
+.gene-table td.variant.editing {
+  background: #FFD;
+}
+.gene-table td.variant.moreinfo {
+  position: relative;
+  height: 2.5em;
+  width: 60%;
+  text-align: left;
+  vertical-align: middle;
+}
+#inline .gene-table td.variant.moreinfo {
+  cursor: pointer;
+}
+.gene-table td.variant.moreinfo input[type="button"]{
+  float: right;
+}
+.variant-moreinfo-button {
+  float: right;
+  position: absolute;
+  right: 0;
+}
+.variant-showmoreinfo-button {
+  float: left;
+}
+.variant-moreinfo-button-row {
+  height: 30px;
+}
+.variant-moreinfo-editbutton-row {
+  padding-right: 30px;
+  position: relative;
+}
+.variant-edit-done {
+  display: none;
+}
+.v-collapsed {
+  display: none !important;
+}
+.variant.moreinfo table {
+  table-layout: fixed;
+}
+.transparent-row {
+  background-color: inherit;
+}
+td.variant-moreinfo strong::after {
+  content: ":";
+}
+.gene-table .expand-tools {
+  padding-top: 5px;
+}
+.variant.variant-default-input.cdna input[type="text"] {
+  width: 170px;
+}
+.gene-table select {
+  width: 210px;
+}
+.variant.moreinfo input[type="text"] {
+  width: 210px;
+}
+.gene-table th:first-child {
+  width: 1em;
+}
+td.Evidence.gene select {
+  width: 340px;
+}
+.moreinfo-table-label-width {
+  width: 167px;
+}
+a.button.delete-variant {
+  position: absolute;
+  right: 9px;
+}
+a.button.variant-edit {
+  position: absolute;
+  right: 0;
+}
+a.delete-variant.secondary:hover {
+  color: red;
+}
+a.action-edit.secondary.variant-edit:hover, a.action-edit.secondary.variant-edit-done:hover {
+  color: #0089DC;
+}
+.variant-moreinfo-table {
+  display: block;
+}
+.triRight {
+  height: 0;
+  width: 0;
+  border-left: 8px solid $theme.titleColor;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+.triDown {
+  height: 0;
+  width: 0;
+  border-top: 8px solid $theme.titleColor;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+}
+.show-moreinfo-button {
+  margin: 0 5px;
+  display: inline-block;
+  cursor: pointer;
+}
+.var-row-number {
+  width: 4%;
+}
+.variant-row-count {
+  white-space: nowrap;
+}
+.variant .LV_validation_message {
+  z-index: 1;
+}
+.gene-table .variant-title {
+  background-color: #d5e6ff !important;
+}
+#inline td.variant.variant-default-input.cdna {
+  height: 3em;
+}

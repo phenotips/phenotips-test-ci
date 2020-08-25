@@ -1,0 +1,2064 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/
+-->
+
+<xwikidoc version="1.1">
+  <web>PhenoTips</web>
+  <name>Skin</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <creationDate>1401822199000</creationDate>
+  <parent>PhenoTips.WebHome</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1401823699000</date>
+  <contentUpdateDate>1401823699000</contentUpdateDate>
+  <version>1.1</version>
+  <title/>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>true</hidden>
+  <content/>
+  <attachment>
+    <filename>body-icon-left-s.png</filename>
+    <author>xwiki:XWiki.Admin</author>
+    <date>1353452431000</date>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABAAAAAdCAYAAACjbey/AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH3AsVAjsos7xz5AAAAdxJREFUOMud1b9rFFEQwPHPxfNyiYkmYIwIKgQ0Vko0iIIoWAgpbO38IwQR/AcECwtbSS1YJIqF2NoIoqCi+BMNKAhigj+jaPTOZhZenrsbyYPl7c3MfWfezJtZ6td5XMKgVa5vuInJKoOe/4D8qlOuBJjGejxZDWAT9uIntqNVZrSmRNbAFVzETtxFB3vC4buw+SeCQngUJ7AhsfkdldiHteiWAYr3iZKouvG0sLEqBwX1FG7jUaLrxf0o664qQAdnsQWHcCezm8N17MdIGWAM53A6otmdHWMYC3iB42WAa7gQzzBGE92fiAyu4jOOFIB1uIGH4R12JGE2AjCUOJyJu3GgiZOYypLTj76kHzpop/UPh4eboTyD54lyIoznI7rBOFYbi2HzEkPNaNd8jcf+Ac9wMICjeB3v33GrJ340MkBxC5/icUQpOdaym9hNBdm1nklArRJHld04Fvvl2Ofiz/2Zg1JAO5pmNpF9inyM1EVQUCdDPp3ofuBt1L6vqhsLwFTs85mzRQzUdWMjq8DHDPAFS/mxy3LQi3t4lcnnIorOSoAW3mSlbSQRLFvNkoHyHl8ryrsUjVUKKHKwNbJetQbqJhIciyGqYjZuq5uJ49H3DyoAC9icfg7+AiLBYNpmi+VbAAAAAElFTkSuQmCC</content>
+    <filesize>573</filesize>
+  </attachment>
+  <attachment>
+    <filename>body-icon-right-s.png</filename>
+    <author>xwiki:XWiki.Admin</author>
+    <date>1353452432000</date>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABAAAAAdCAYAAACjbey/AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH3AsVAwA4k3vmjwAAAddJREFUOMul1T9rFGEQBvBfLmeikpxnNKeFYiUaRPwHCmJMqZivIBYW2vgBxN4PYKFY2aYQqwiCCIJiIRYBRSHIgVUM5MC/xBgutzaz8LLu3kkcOIZ9Zt5nn5l5Z4/+dgRzOFeVUBtAMIUTuLpZAvjtP2wK73F2Mwq2oYUuZrGjLGm44vBFTGMCh3EZ11HHyziXVSnYF43bivUE34mbGMNGWQlD4SfThIKN4digHhxHG52QnNt9LOFKFUGGU2jgEZaj1lzZfPTmWpT4F0EDM3gRz7sT4nyk7yL+JC87JZjFayxgFNvRS+Lnw8/gI+4hq2NLSOvgVSQ1kynkJRzESGDT0afbNRyK4JvkbfX4ZfgZ2ESh5Du4VYs3PMfXJDiJcazhaWB7sCvJeYi7tWjMQmGUzfDrsQu5nU6a/xk3qnZhJJJyBSuBt5LJDBWnoHAru9EoeFASz5BVETSwisV4fhx+77+s83BIbSfYIr7gZPFcGUErNu9Dgq3gGS7FNLr9tvFA+F8F4qW4G0cHlTCK7yXfwk/JhAb2YBnfCvg8fqTyqwhqkVjE2oFnCne+aKuxYEWCXsTWBikYLyHOEr+/3xdJJPQqLtgGLvRT0IwpdCoUvMWZ+M8AfwASUl+BqVfCkAAAAABJRU5ErkJggg==</content>
+    <filesize>568</filesize>
+  </attachment>
+  <attachment>
+    <filename>body-icon-s.png</filename>
+    <author>xwiki:XWiki.Admin</author>
+    <date>1353452432000</date>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABAAAAAdCAYAAACjbey/AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH3AsVAwAh9xBOTwAAAcFJREFUOMud1M+LjVEYB/DPfekamUIabGZjYzUxFBsLNUVmN/+FlY1SslDKzk5+l40skIbIXrJQFroLZUFDfowSavIrM/e1eU6dTu9777hn85znfb7v9/l9GHxO4y32GvF8Qo3zbYBqlUSdUSM4ExHsHiWCrdgT91ls9B/h3sL38N4P+RWnArNmUJ4z8UP6uZ/pSxhvSyHdpxvI+yHHsWtYPT7gKXqZ5xqXwnZlUP4nA9zBtYJgFlNxb4rSjjAeD/1ZQZC+P8Zi03z0cC7um7FQdOFehn2Ci0nZgEe4kQH24UcRwUt0M8xrnIWjAdiZGQ9mntM8LGIswxxDXYXxBF5lxunI7z2u4g+2YUuGuYMLbd24HMQvMIfl0OfK+anCU7ltae7fYD7GOO2HrNWdKitS01jfDXm9wV6nGrTNBNwM+TDk9tVs4xhWMu8wEWncD33toG08EOEdKey38Te60biNiSD9+KUg+Biep4YRpA58KwgWQnaHPWnr8DxGNT8P4kFZHkbQxbuitVUQLpUtz6uZDJ8DWDrq4yd+txGkGkziV0FQZ3KyLYX07h0q88zOCg63EaSV3hRL1BRBD/uxPhn+AWIFfIBgIfUHAAAAAElFTkSuQmCC</content>
+    <filesize>546</filesize>
+  </attachment>
+  <attachment>
+    <filename>eye.png</filename>
+    <author>xwiki:XWiki.Admin</author>
+    <date>1353452800000</date>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3AsVAwcgz1boHgAAAlpJREFUOMvFUz1v01AUPX62Q+zETQc3FaVq3EgZOsAOytKlA1IRbAhUqRO/AfZOHeg/qGBmAQkJ0TliahiKKjo2kVtLVtqkPMXP7z0/X6ZElRg7cKQ73OF+nKNzLCLCXcBwRzi3m+Fw2CWid3meb2qtPSKCMQZlWYIxJj3POw6C4O3KykpvNmPNKMRx/FFK+VIpVbFtG0opjMdjKKXgOA4ajQa01jDG0PLy8tf19fVn8wVxHH/nnG9ZloWLiwskSQIAcF0XxhgURYGyLGHbNqIoAhFhaWnp18bGxiNnMBi8z/N8i4hwdnaG1dVVuK6LoiigtZ6XlBJra2tQSiHLMiilHgL4wIwxr7IsgxAC29vbMMZAaw2lFHZ2drC7uwspJZRSGAwG6Ha7iKII0+kU/X7/tTOZTJrNZhNhGALA/NrsbSKClBJSyrnY7XYbvu/j6OjIccIwLGu1mm2MAWMMQRBgNBpBSomDgwMopSCEgNYarVYLZVnCGINGo4FWq0WMc/6Hcz7nHIYhKpUKhBAQQiDPcwghEAQB2u02tNYoigJpmoJzrp1qtfppNBq9ybIMi4uLqNfr6HQ6sG0bw+EQABBFETqdDprNJrIsQxzHOD09BRH1LSLCycnJj5ubm8eu62JhYWHs+37ueZ6ybbuc8SYiXF9fV+M4vn95eQnOeZIkyYO5kXq93pc0TZ+6ruv4vo9KpQLHcUBEICJMp1NcXV0hTVOq1WrH5+fnT/b29grrdpgODw/vTSaT51LKF4yxTcZYHYBljCnzPP8phPhMRN/29/d//2Pl/5bGvyCjcnzpE2LzAAAAAElFTkSuQmCC</content>
+    <filesize>699</filesize>
+  </attachment>
+  <attachment>
+    <filename>head-icon-s.png</filename>
+    <author>xwiki:XWiki.Admin</author>
+    <date>1363902620000</date>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABAAAAAVCAYAAABPPm7SAAAAsklEQVQ4y2NgwA5YgdgUiP2B2B3I02cgAdgD8S8g/o+GfwOxFSHNCVg0ouMEXJpFidAMwl+BmBGbAXOINACEu7EZcIkEAz6jawY56QsJBvwAYl50A/6TgEGxJEmpARLo3iDVABFkzetINACEO5AN2EOGAS3IBiwkw4B0ZAO8yDDADj0QTxCp8S8QHwNiLmypkRgDHuDLjduIMGAzLs2gxGRBhAHe+FygR4QBbvgM0Ke7AQD+P9Vh46YDYAAAAABJRU5ErkJggg==</content>
+    <filesize>235</filesize>
+  </attachment>
+  <attachment>
+    <filename>logo.png</filename>
+    <author>xwiki:XWiki.Admin</author>
+    <date>1368557198000</date>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAALAAAAAyCAQAAABWxpkGAAAGvUlEQVR4Xu2aa4hW1RrHZ8YZrSmPl67glDqNJkRFl1MZhDpDjkZeMJJMiO6RnIOFpNY5lAzaRGTiLcwLRF+iLxNJfpIkyw9ZFl6QEoL64IeQgjgjHpz3ff+/1rtdrWfW6h0vtEHo3f892732ep79zPDzeZ/32WvvhvNSoUKFChUqVKhQoUKFChVS48UDoKa/P94mt+/mC/ZWN2W7/NhGNq9wNH/bsNn0yrCF2Ed4uA7yl2FuDxIgBP4oTELpLLKdJEpyDTVisaJeAP/fyCGnQEBGWtiPeYMAf0U6i4TCjBTFktCL9QUYjIRlGRE4IuzmQeJjdIOXRfNWqAfA8oBNSouBPFAMfAQtZYu5p74WSajOAMtyMwWMUK3ZgE+KDYFijFnhRCDqrkR4IE5IyIgpAA6zks3YSeTnxzZjXsqpRNCYdpwMPvNHIl/zIO4RzZr4my+NcXQ12gxNYRz50OyOlsHlqPoigEqAUhbZv8HJj4M/JUCWwRJls1JWSGPyqcEaz9vq5Q16tUaPeiBBjGYLY4JvhzYpgqrb9Laq1/Zm129gZAR7ojYzKiC+R2+6GAliGrRQPVrF3MzHzZnCleNAVhg2slTLtVKvaoWWs4Q9UfLtYBMIEWa2aRnLnedL9HLYk4882KfVWsEafQmyD0ROgLus7gD7aY2s7aDJAdgcoZbI/ry1P5wWujbCMxtY1+Ch8TKcqaiW/5rCidAWHNMVluOGmzb2EST4p/034Xa9bpUZdCttQmBV9Ubn04T/K7QVKHm7qAgWW1rxb6BsQPIAfC+E8VzQWnc06wTQDcHenQLWEyL9UJu4X1Bm4hkQLPWAgx/XUOIH7sh8Z3CSnxjhRlH2qo2vIdRLVCETnzubx0DFajDTuCUuo2rXfADB/3jARfzBMhjY7rCuA8FpPe3GfYAPlxtgxtBAczUr2Kh+y48UMEMAZjjN1U0timIzE/iV7W4YADPM7GwGtVbnqtjVDvzLspcML/sAIUwlnRZ87KynqmPKHrQBjluvDmYJDWRX/eoir8cAwxwmgWAABIvUF/UV+QC2yskS8AscBrjdgEEKGAZ/rIkBdwnmC403wFYidDkn9GYVLw1kMdipg1YcMrwHrK9K7uR2OXspudEwwOaNOpjtowyAi/pfgHCLsYA2O7VoQlL+gLVGZQNmGSy3DZ3BalTmQRKbGYJmDrHrDGDFgK8Dprt5q6ZPASE+49kHymSAhQGmlLZpIAcYBJIMMN5MyQF+yzpj4AMX5zH1e7JSBWvf8gDMoBrMOElboho8mVgp4McxweokdmeGdCbI1VleIALMJMGEwYCZAbT68Wi+AQhQMcCEDMYzJAFs3kLtLBBer7jIRw0wFXxZYop6OKwQL7827T7QXj5lD59R5jdcH4BZJwLPMIt5zFMnr1EjgzWb+VU7C9WRAgYuc8fv2Jl9Q0c1WB2g9ghwpwGmhfesv4lLBGcpEUpKhNCdjFA309WlW13cldYLh/Bf8R8mZZiXgcq5A+YIBzmkb1mf5U/cJaOxAdjUc3URNKWAdak73gVczbOKAbcJdbtjACznQUs4a9BGW9tRstDoAXuKAqyLAGE7d6mR23UzN9Glj0C2bAZSWXj9wkMu5odA/m2aSTHgCcCgNo0agJP7wRTwJdnoc3ayKCkRrRzXu/5LLutc9In2x38F2wRGNwFMKTIhn8E2SygRStbKsHoDCuNRLBaQI2CiLiIVcR98oW1apyADrKn0q08GOBNrQVdmiIf9UY7SjpqNIM73S07plxyCDs0mmANgCdABF2U3qKwBAF3Fc4Dy7yIS1c5gLvRGo5MMMM1u3wX0xzcaGqtTOs7dvuM4yfc0WQR8FrMVkl7YajCqUYOTXPVdhPcxITjF9Yxgt7cvdbj3WgtNLoCnAf+IDPndKnd7wG5MO9S4Ve7Qz6HKHmFk8oDTI9YGpSUC+gwwqn2r7DWWez3tNIqAHzXOfhM9ud8qcx3vMHxIwNFiDzUWezjXYk9zOHuSngAw4KNRj6hHq/Tg4KxNC4UG0hLBMZZQqbEevINNSRexTu+DIC0R/gfUxypW8oaOgsi1RNiSoin/5UoCOP6E14CryVsTqdZ6cEWeQwK4LARlA6wyNpMARqAKFRAi9qvDR0YGSLZYDqq1iXg0tI+Qjc06VAYXj4wUzQYf2dCbaj4yshNBPQL2yuOpcgzYrqrDZ3IXLYOB+gQsBVJ/CbD8Ty3A9VaDTWd5dQqbt5nkmEYxtKDEqvp4daraeRO9/Ef8Gl/YZFsyZ37YbBov7H7+b/DyX/H6aqFChQoVKlSoUKFChQr9DhVxzOetkqG7AAAAAElFTkSuQmCC</content>
+    <filesize>1782</filesize>
+  </attachment>
+  <attachment>
+    <filename>ratios-icon-s.png</filename>
+    <author>xwiki:XWiki.Admin</author>
+    <date>1363905937000</date>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAQAAAAngNWGAAAACXBIWXMAABcSAAAXEgFnn9JSAAAAB3RJTUUH3QMVFisPvHdHFgAAAAJiS0dEAP+Hj8y/AAABtklEQVQoU2XRS0sUUBQA4K/UFJnJTKMwwUX0ArUcN5KZUCY4RgWViRqMgZILNc13MGkFRqQFZdgDH9GqVY9di6gkMLr/aVo4jmNxNvec+93DPfdK2QyFqvSZSkefSoVZu5lFox6XRDJ5xGU9Gu3YBg2Ii26dT1ej4gYy0F5LHujNxJDxrOyeFWUbsMO8FdMa7VfsmFXBCXuUOW3Ce28kUigwqVVUvWcWDWr1StBhzJLXupU6Z0oBFcbcMWlC0gfBum9+C4JPnnvovml3VXBNszoRUUWKRHwUBC/VO+qgcsVOaXGVUdVqM3PmSgiCeNbsMSeNMrINFqoVBEc23y8NR/6Ho4Lg8D8dR+hXkwWL/REEN+zMgrX6adK2CeUaFgTBz61/EnPdWUokxdKlUt+tWfdV0JQFk0rIM+RiSop8M1YlrVn02FwGXjAsV4oWSbly1Pmhyrgv5jT45VD6OknxFCmq9Uko0W5RvhcWzCv0zrgceRL61GzCmPNueyJhlzmLZuUrtyDulmaxLXjGbpWGTGo367O36rSb0eu4qAaxDbjPFZ06dek26Kllyx4ZclOXTp3aHEj5C58T1CMV/tRNAAAAAElFTkSuQmCC</content>
+    <filesize>549</filesize>
+  </attachment>
+  <object>
+    <name>PhenoTips.Skin</name>
+    <number>0</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>5a947c54-713e-41c7-8f8a-465610b7555f</guid>
+    <class>
+      <name>XWiki.JavaScriptExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>if (browser.isIE &amp;&amp; browser.versionMajor &lt; 9) {
+  new XWiki.widgets.ModalPopup("${services.localization.render('phenotips.skin.incompatibleBrowserWarning')}", {}, {"title": "${services.localization.render('phenotips.skin.incompatibleBrowserWarning.title')}"}).showDialog();
+}</code>
+    </property>
+    <property>
+      <name>Incompatible browser warning</name>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>always</use>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.Skin</name>
+    <number>1</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>9833488a-2a23-4df1-976e-54da33dced63</guid>
+    <class>
+      <name>XWiki.JavaScriptExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>//close all suggest pickers when clicking outside the picker and dialogues invoked by the picker
+document.observe('mousedown', function(event) {
+  if (!event.findElement('.suggestItems') &amp;&amp; !event.findElement('.dialog-ontology-browser')) {
+    $$('.suggestItems').each(function(item) {
+      if (item.__targetField &amp;&amp; (item.__targetField._suggest || item.__targetField._suggestWidget || item.__targetField.__x_suggest)) {
+        (item.__targetField._suggest || item.__targetField._suggestWidget || item.__targetField.__x_suggest).clearSuggestions();
+       }
+    });
+  }
+});
+
+//if we use userPicker.js, since it is using native xwiki suggest.js, we attach suggest input to suggestion items dropdown object here
+document.observe('xwiki:suggest:containerCreated', function(event) {
+  if (event.memo &amp;&amp; event.memo.container &amp;&amp; event.memo.suggest &amp;&amp; event.memo.suggest.fld) {
+    event.memo.container.__targetField = event.memo.suggest.fld;
+  }
+});</code>
+    </property>
+    <property>
+      <name>Hide suggest dialogs when they lose focus</name>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>always</use>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.Skin</name>
+    <number>2</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>4ce6c5c3-22da-4c43-8bf2-c1c83a04f295</guid>
+    <class>
+      <name>XWiki.JavaScriptExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>document.observe('xwiki:dom:loaded', function() {
+  // Edit buttons for every heading in view mode
+  var editButton = $('prActionEdit');
+  if (editButton) {
+    $$('.chapter &gt; h2[id]').each(function(title) {
+      var editLink = new Element('a', {'class' : 'action-edit fa fa-pencil', 'href' : editButton.href + '#' + title.id, 'title' : 'Edit'});
+      title.insert(editLink);
+    });
+  }
+  if (!$('inline')) {return;}
+
+  // , .chapter.phenotype-info .negative_phenotype-group
+  $$('.chapter.phenotype-info .phenotype-group').invoke('addClassName', 'collapsible-group');
+
+  $$('.chapter &gt; h2').each(function(item){
+    var showIcon = '&lt;span class="fa fa-plus-square-o fa-lg"&gt;&lt;/span&gt;&amp;nbsp;';
+    var chapterShow = new Element('button', {'class' : 'tool button secondary', 'type' : 'button'}).update(showIcon+"$services.localization.render('phenotips.patientSheet.expandSection')");
+    var hideIcon = '&lt;span class="fa fa-minus-square-o fa-lg"&gt;&lt;/span&gt;&amp;nbsp;';
+    var chapterHide = new Element('button', {'class' : 'tool button secondary', 'type' : 'button'}).update(hideIcon+"$services.localization.render('phenotips.patientSheet.collapseSection')");
+    var chapterShowWrapper = new Element('span', {'class' : 'buttonwrapper show'}).insert(chapterShow);
+    var chapterHideWrapper = new Element('span', {'class' : 'buttonwrapper hide'}).insert(chapterHide);
+    var chapterExpandTools = new Element('span', {'class' : 'expand-tools'}).insert(chapterShowWrapper).insert(chapterHideWrapper);
+    item.insert({after: chapterExpandTools});
+    [chapterShow, chapterHide, item].invoke('observe', 'click', function (event) {
+      event.element().up('.chapter').toggleClassName('collapsed');
+    });
+  });
+  $$('.chapter').each(function(item) {
+     if (window.location.hash &amp;&amp; item.down(window.location.hash)) {
+       item.removeClassName('collapsed');
+     }
+  });
+});</code>
+    </property>
+    <property>
+      <name>Expand/collapse sections</name>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>currentPage</use>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.Skin</name>
+    <number>3</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>a847fd11-a557-4323-9940-9302a4f11f22</guid>
+    <class>
+      <name>XWiki.JavaScriptExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>var PhenoTips = (function(PhenoTips) {
+  // Start PhenoTips augmentation
+  var widgets = PhenoTips.widgets = PhenoTips.widgets || {};
+
+  /**
+   * PhenoTips.widgets.FormUtils allows to:
+   *  - check if the form displayed on the current page has unsaved changes
+   *  - save that form and do something after saving
+   * It also performs periodical autosave every 10s (only if there are unsaved modifications).
+   *
+   * HOW TO USE:
+   *
+   *  PhenoTips.widgets.FormUtils.getFormState() - returns an object representing the state of the current form
+   *  Notes:
+   *   - it always looks for the form with the id 'inline' (which is the convention for all forms for PhenoTips entities)
+   *   - if there is no $('inline') form on the page, getFormState will still return an object
+   *
+   *  PhenoTips.widgets.FormUtils.getFormState().isFormDirty() - checks if there any unsaved changes
+   *  Note: if there's no form on the page, it will automatically return false; otherwise it will check the actual form for unsaved changes
+
+   *
+   *  PhenoTips.widgets.FormUtils.getFormState().saveForm(successCallback, failureCallback) - saves the form and calls one of the callback
+   *  functions depending on the result of the save attempt.
+   *  Notes:
+   *   - both callbacks are optional
+   *   - if there's no failureCallback, when saving fails the user is prompted if successCallback (if provided) should be pursued anyway
+   *   - if there's no form on the page, none of the callbacks is called
+   *
+   *  PhenoTips.widgets.FormUtils.getFormState().saveIfFormDirty(successCallback, failureCallback) - if there's a form with unsaved changes
+   *  on the page, it behaves like saveForm(successCallback, failureCallback), otherwise it calls successCallback (if provided).
+   *  Note: it is usually preferred to use saveIfFormDirty instead of saveForm, because:
+   *   - it avoids unnecessary versions
+   *   - it it guarantees the successCallback is executed if there aren't any pending modifications.
+   *
+   */
+  widgets.FormUtils = Class.create({
+    config : {
+      // TODO: CONFIGURE IN THE ADMINISTRATION
+      autosave : {
+        enabled: true,
+        frequency : 60 /*seconds */,
+        message: 'Automatic save'
+      }
+    },
+    initialize : function() {
+      this.form = $('inline');
+      if (this.form) {
+        this.isFormDirty = this.isFormDirty.bind(this);
+        this.form._formState = this;
+        var _this = this;
+        var recordFormData = function() {
+          _this.formData = _this.form.serialize();
+        };
+        var bottomButtons = $$("input[name^='action_']");
+        var updateSaveState = function(saving, recordData) {
+          // Record the form's current save state.
+          _this.form._saving = saving;
+          // Buttons should be disabled when the form is saving, and enabled when not.
+          bottomButtons.invoke('toggleClassName', 'disabled', saving);
+          recordData &amp;&amp; recordFormData();
+        };
+        // Some form elements are still being modified while "xwiki:dom:loaded" is fired.
+        // If the initial state of the form is recorded immediately, there will likely be
+        // differences with the state of the form when navigating away even if the user
+        // hasn't actually changed any data.
+        // Setting a timeout, even zero, delays the initialization until other
+        // form elements have been modified already.
+        setTimeout(recordFormData, 0);
+        document.observe('xwiki:actions:save', updateSaveState.bind(this, true, false));
+        // Record the state of the form again once the form is saved.
+        document.observe('xwiki:document:saved', updateSaveState.bind(this, false, true));
+        // Make sure to unlock form saving if save failed.
+        document.observe("xwiki:document:saveFailed", updateSaveState.bind(this, false, false));
+        // FIXME: The validation script simply stops the form submission, so there is no other way to find out that validation failed; refactor the way validation works
+        document.observe("phenotips:scrollValidation:invalid", updateSaveState.bind(this, false, false));
+        bottomButtons.invoke('observe', 'click', recordFormData);
+        // Upon navigating away, check if anything has changed in the form and warn the user
+        // if it did.
+        window.addEventListener('beforeunload', function(event) {
+          if (_this.isFormDirty()) {
+            var message = "$!escapetool.javascript($services.localization.render('phenotips.navigation.beforeunload.warning'))";
+            (event || window.event).returnValue = message;
+            return message;
+          }
+          return undefined;
+        });
+
+        // Set up the smart autosave
+        if (this.config.autosave.enabled) {
+          this.timer = new PeriodicalExecuter(this.saveIfFormDirty.bind(this), this.config.autosave.frequency);
+        }
+      }
+    },
+    isFormDirty : function() {
+      return this.form ? (this.formData != this.form.serialize()) : false;
+    },
+    saveForm : function(successCallback, failureCallback) {
+      var onSaved = function () {
+        document.stopObserving("xwiki:document:saved", onSaved);
+        document.stopObserving("xwiki:document:saveFailed", onSaveFailed);
+        if (typeof successCallback == 'function') {
+          successCallback();
+        }
+      };
+      var onSaveFailed = function () {
+        document.stopObserving("xwiki:document:saved", onSaved);
+        document.stopObserving("xwiki:document:saveFailed", onSaveFailed);
+        if (typeof failureCallback == 'function') {
+          failureCallback();
+        } else if (typeof successCallback == 'function') {
+          // If there's NO callback for when the saving failed, ask user if it's OK to proceed anyway with the successCallback
+          (new XWiki.widgets.ConfirmationBox({
+            onYes: successCallback,
+            onNo: function(){}
+          },
+          {
+            confirmationText: "$!escapetool.javascript($services.localization.render('phenotips.save.failed.confirmProceed'))", // "Failed to save the latest modifications. Proceed anyway?"
+            showCancelButton: false
+          })).showDialog();
+        }
+      };
+      // If already saving data, don't initialize another save.
+      if (this.form._saving) { return; }
+      document.fire("xwiki:actions:save", {"continue": true, "form" : this.form});
+      document.observe("xwiki:document:saved", onSaved);
+      document.observe("xwiki:document:saveFailed", onSaveFailed);
+    },
+    saveIfFormDirty : function(successCallback, failureCallback) {
+      if (this.isFormDirty()) {
+        this.saveForm(successCallback, failureCallback);
+      } else {
+        // If there are no unsaved changes, just go straight to calling the successCallback function if one is provided.
+        (typeof successCallback == 'function') &amp;&amp; successCallback();
+      }
+    }
+  });
+
+  // Static function to get the form state
+  widgets.FormUtils.getFormState = function() {
+    return formState ;
+  };
+  var formState;
+  var init = function(event) {
+    formState = new PhenoTips.widgets.FormUtils();
+  };
+
+  (XWiki.domIsLoaded &amp;&amp; init()) || document.observe("xwiki:dom:loaded", init);
+
+  // End PhenoTips augmentation.
+  return PhenoTips;
+}(PhenoTips || {}));</code>
+    </property>
+    <property>
+      <name>Utility class for form state manipulation, including saving on demand, periodic autosave and warning users when they navigate away from a form with unsaved changes</name>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>always</use>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.Skin</name>
+    <number>4</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>c9bfd28f-b354-470e-a67a-d1e5d390b9bc</guid>
+    <class>
+      <name>XWiki.JavaScriptExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>var disableTitleTab = function(tab) {
+  tab.removeClassName('active');
+  tab.update(new Element('a', {'href' : XWiki.currentDocument.getURL($$('input[name="returnTo"]')[0].value)}).insert(XWiki.currentDocument.page));
+};
+
+var hideElement = function(id) {
+  var elem = $(id);
+  elem &amp;&amp; elem.hide();
+};
+
+var cleanupUI = function(tab) {
+  ['document-authors', 'patient-record-actions'].each(hideElement);
+};
+
+var enableCurrentTab = function(tab, cleanUI) {
+  var tabHeading = tab.down('h1');
+  var tabLink = tab.down('a');
+  tab.addClassName('active');
+  tabLink &amp;&amp; tabLink.addClassName('hidden');
+  tabHeading &amp;&amp; tabHeading.removeClassName('hidden');
+  cleanUI &amp;&amp; cleanupUI(tab);
+};
+
+document.observe('xwiki:dom:loaded', function() {
+  var currentTabIdEl = $('current-tab-id');
+  var currentTabId = currentTabIdEl &amp;&amp; currentTabIdEl.value;
+  if (currentTabId) {
+    var currentTab = $(currentTabId);
+
+    // Disable the title tab.
+    var documentTitle = $('document-title');
+    // It should always be there, but check.
+    documentTitle &amp;&amp; disableTitleTab(documentTitle);
+    enableCurrentTab(currentTab, currentTab.identify() !== 'document-title');
+  }
+});</code>
+    </property>
+    <property>
+      <name>Define tab behavior</name>
+    </property>
+    <property>
+      <parse>0</parse>
+    </property>
+    <property>
+      <use>always</use>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.Skin</name>
+    <number>0</number>
+    <className>XWiki.StyleSheetExtension</className>
+    <guid>8dda95b8-cd05-43f6-9f5b-c60c9566d28d</guid>
+    <class>
+      <name>XWiki.StyleSheetExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <contentType>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>contentType</name>
+        <number>6</number>
+        <prettyName>Content Type</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>CSS|LESS</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </contentType>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>#template('colorThemeInit.vm')
+
+## Remove this after it's implemented by default in the base skin
+*::-moz-focus-inner {
+  padding: 0;
+  border: 0
+}
+
+#body {
+  font-family: Arial,Verdana,sans-serif;
+}
+.edit_section {
+  display: none !important;
+}
+#headerglobal {
+  position: relative;
+}
+#company h1 a {
+  color: $theme.pageBackgroundColor !important;
+  text-decoration: none !important;
+}
+#company h1 {
+  border: 0 none;
+  color: $theme.pageBackgroundColor;
+  font-size: 1.2em;
+  margin: 0 20px 0;
+  position: absolute;
+  right: 5%;
+  text-shadow: 0 0 6px #777;
+  text-transform: uppercase;
+}
+.xdocCreation {
+  float: right;
+  width: 48%;
+}
+#document-title h1 {
+  margin: 0 0 0.5em;
+  padding: 5px 0 0;
+}
+#mainContentArea, #mainEditArea {
+  overflow: visible;
+  padding: 10px;
+  position: relative;
+}
+
+.actionmenu {
+  height: 1.8em;
+}
+.actionmenu a, .actionmenu a:visited {
+  /* (menu height - line height) / 2 = (1.8em - 1.2em) / 2 = 0.3em */
+  padding-top: .3em;
+  line-height: 1.2em;
+}
+.actionmenu a strong {
+  line-height: inherit;
+}
+/** Bug in Colibri: although the page body has 25px padding, the menus on top have 10px + 10px padding. */
+.rightmenu {
+  padding-right: 15px;
+}
+/** Bug in Colibri: a custom font is used instead of the one used everywhere else. */
+.actionmenu a, .actionmenu a:visited {
+  font-family: inherit;
+}
+#phenotips-mainmenu, #phenotips-globalTools {
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+  color: $theme.menuLinkColor;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  /* Keep above .content-actions */
+  z-index: 1001;
+}
+#phenotips-mainmenu .menu-horizontal, #phenotips-globalTools .menu-horizontal {
+  font-size: 1em;
+}
+#phenotips-mainmenu .topmenuentry {
+  background-image: none;
+  white-space: nowrap;
+}
+#phenotips-mainmenu a, #phenotips-globalTools a {
+  display: inline-block;
+  float: none;
+  text-transform: none !important;
+  font-weight: normal !important;
+  font-size: 1em;
+}
+#phenotips-globalTools .search input {
+  font-size: 1em;
+  margin: -1px;
+  padding: 0 3px;
+  vertical-align: baseline;
+  width: 20em;
+}
+
+#phenotips-globalTools label {
+  white-space: nowrap;
+}
+#phenotips-globalTools .menu.menu-horizontal ul ul {
+  background-color: $theme.menuBackgroundColor;
+}
+#phenotips-globalTools .menu.menu-horizontal .xDropdown + ul {
+  margin-left: 0;
+}
+
+#create-patient-record {
+  box-sizing: content-box;
+  background: transparent;
+  border: 0 none;
+  color: $theme.menuLinkColor;
+  cursor: pointer;
+  display: inline-block;
+  font-family: inherit;
+  font-size: 1em;
+  padding: 2px 0 0;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  width: auto;
+}
+#create-patient-record:hover, label[for="create-patient-record"]:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#phenotips-globalTools .search .icon-search, #phenotips-globalTools .search .fa-search {
+  color: $theme.menuLinkColor;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+ul.filters {
+  margin: 10px;
+  list-style-type: none;
+}
+ul.filters li {
+  padding: 0 0 1em;
+}
+ul.filters .accepted-suggestions {
+  margin: 0 !important;
+}
+
+.bottombuttons {
+  background: #F9F9F9;
+  border: 1px solid #FFFFFF;
+  bottom: 0;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  left: 0;
+  margin: 0 25px !important;
+  padding: 0.5em 10px;
+  position: fixed;
+  right: 0;
+  z-index: 3;
+}
+.bottombuttons input[name="action_cancel"] {
+  float: right;
+}
+
+input.button:disabled, .buttonwrapper button:disabled, input.button:disabled:hover, .buttonwrapper button:disabled:hover {
+    background-image: none;
+}
+
+/* Buttons should never break on more than one line; extending a rule from colibri */
+input.button, .buttonwrapper button, .buttonwrapper a:visited, .buttonwrapper a:link, .buttonwrapper a:active {
+  white-space: nowrap;
+}
+
+.add-data-button,
+.buttonwrapper a.add-data-button:link,
+.buttonwrapper a.add-data-button:visited,
+.buttonwrapper a.add-data-button:active {
+  background-color: $theme.buttonPrimaryBackgroundColor;
+  border-radius: 4px;
+  box-shadow: 0 0 6px $theme.borderColor;
+  color: $theme.buttonPrimaryTextColor;
+  display: inline-block;
+  font: normal normal 700 .8em/140% "Helvetica",sans-serif;
+  padding: .3em .2em .3em  2.2em;
+  position: relative;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.add-data-button:hover,
+.buttonwrapper a.add-data-button:hover {
+  box-shadow: 0 0 6px $theme.linkColor;
+}
+.general-tools {
+  float: right;
+  margin: -1.6em 3px 0;
+  padding: 3px 0;
+  position: relative;
+}
+.general-tools label {
+  color: $theme.linkColor;
+  cursor: pointer;
+}
+.general-tools label:hover {
+  text-decoration: underline;
+}
+#patient-creation-form {
+  position: relative;
+  display: inline-block;
+}
+.xwiki-livetable-pagination #patient-creation-form {
+  float: left;
+}
+label.create-button-label, .add-data-button:before {
+  color: $theme.buttonPrimaryTextColor;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.25em;
+  font-weight: bold;
+  height: .8em;
+  left: .4em;
+  line-height: .9em;
+  position: absolute;
+  text-align: center;
+  text-shadow: none;
+  top: .24em;
+  vertical-align: middle;
+  width: .8em !important;
+  z-index: 2;
+}
+
+thead.xwiki-livetable-display-header td.xwiki-livetable-display-header-filter input, thead.xwiki-livetable-display-header td.xwiki-livetable-display-header-filter select {
+  padding: .3em !important;
+}
+
+input[type=text], input[type=password], textarea {
+  border-color: $theme.borderColor;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.4) inset !important;
+  width: 100%;
+}
+textarea {
+  box-sizing: border-box;
+  width: 100%;
+}
+input[type=text]:focus, input[type=password]:focus, textarea:focus {
+  border-color: $theme.linkColor;
+}
+
+body .xwiki-livetable-topfilters-container, body .xwiki-livetable-tagcloud-container {
+  background-color: $theme.backgroundSecondaryColor;
+  border-color: $theme.buttonPrimaryBackgroundColor;
+}
+body .xwiki-livetable-topfilters-tip .tippointer, body .xwiki-livetable-tagcloud-tip .tippointer {
+  border-top-color: $theme.buttonPrimaryBackgroundColor;
+}
+body .xwiki-livetable-topfilters-tip .tippointer div, body .xwiki-livetable-tagcloud-tip .tippointer div {
+  border-top-color: $theme.backgroundSecondaryColor;
+  top: -22px;
+}
+body .xwiki-livetable-topfilters-container .value-cloud-tools a {
+  color: $theme.textColor;
+  font-weight: bold;
+}
+#patients.xwiki-livetable .actions {
+  text-align: right;
+}
+h1:target, h2:target, h3:target {
+  background-color: $theme.highlightColor;
+}
+#globallinks {
+  display: none;
+}
+
+## Disable gradients
+#mainmenu {
+  background-image: none;
+  box-shadow: none;
+}
+#mainmenu * {
+  text-shadow: none;
+}
+.editbody #footerglobal {
+  margin-bottom: 4em;
+}
+.main {
+  padding-bottom: 0;
+}
+.panels .gadget .gadget-title * {
+  line-height: 1em !important;
+}
+.gadget label[for=create-patient-record], .gadget .extra {
+  color: $theme.linkColor;
+  cursor: pointer;
+  float: right;
+  font-size: 1.21em;
+  margin-left: 1em;
+  text-decoration: none;
+}
+#xdocFooter {
+  display: none;
+}
+.language-block {
+  position: relative;
+}
+.language-block .rightmenu {
+  top: 10px;
+  margin-right: 10px;
+}
+.language-block .menu-horizontal &gt; ul &gt; li &gt; span {
+  color: $theme.menuLinkColor;
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+}
+.language-block .menu-horizontal &gt; ul &gt; li:last-of-type {
+  padding-right: 0;
+}
+.language-block .menu-horizontal &gt; ul ul {
+  margin: 0;
+  z-index: 2000;
+}
+
+.language-block .menu-horizontal .selected {
+  position: relative;
+}
+.language-block .menu-horizontal .selected:before {
+  content: "✓";
+  display: block;
+  position: absolute;
+  left: .3em;
+}
+.xdialog-box .button {
+  min-width: 5em;
+}
+.commentcontent {
+  white-space: pre-wrap;
+}
+.before-entity-data {
+  font-size: .87em;
+  margin: 0 -11px;
+  padding: 5px 10px;
+}
+.before-entity-data a.button {
+  font-size: 1em;
+  text-transform: none;
+  font-weight: normal
+}
+</code>
+    </property>
+    <property>
+      <contentType>CSS</contentType>
+    </property>
+    <property>
+      <name>PhenoTips skin</name>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>always</use>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.Skin</name>
+    <number>1</number>
+    <className>XWiki.StyleSheetExtension</className>
+    <guid>29367086-f32d-4f95-9b54-81b4756758c4</guid>
+    <class>
+      <name>XWiki.StyleSheetExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <contentType>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>contentType</name>
+        <number>6</number>
+        <prettyName>Content Type</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>CSS|LESS</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </contentType>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>#template('colorThemeInit.vm')
+
+/* General Styles */
+
+.menu-horizontal ul {
+  list-style-type: none;
+  margin: auto;
+}
+
+.menu-horizontal li {
+  cursor: default;
+  line-height: 16px;
+  min-height: 16px;
+  padding: .3em 1.3em;
+}
+
+.menu-horizontal li:last-of-type {
+  padding-right: 10px;
+}
+.menu .fa:before {
+  line-height: 1em !important;
+}
+.menu-horizontal img {
+  vertical-align: middle;
+}
+
+.menu-horizontal &gt; ul * {
+  line-height: 1.2em;
+}
+
+/* Horizontal separator */
+.menu-horizontal li li:empty {
+  border-top: 1px solid $theme.borderColor;
+  line-height: 1px;
+  min-height: auto;
+  padding: 0;
+}
+
+/* Horizontal Menu */
+
+.menu.menu-horizontal {
+  font-size: .85em;
+  padding-left: 25px;
+}
+
+.menu-horizontal li li:empty {
+  border-top: 1px solid $theme.textSecondaryColor;
+  margin: .5em 1em;
+}
+
+/* Vertical separator */
+.menu-horizontal &gt; ul &gt; li:empty {
+  border-left: 1px solid $theme.textSecondaryColor;
+  margin: 0 .5em;
+  padding: 0;
+  vertical-align: middle;
+}
+
+.menu-horizontal li a, .menu-horizontal li a:visited {
+  color: inherit;
+}
+
+.menu-horizontal &gt; ul &gt; li {
+  display: inline-block;
+}
+
+.menu-horizontal &gt; ul &gt; li &gt; .xDropdown:after {
+  content: '\25BC';
+  font-size: .8em;
+  line-height: 1em;
+  margin-left: .5em;
+}
+
+.menu-horizontal &gt; ul ul {
+  background-color: $theme.pageContentBackgroundColor;
+  border-radius: 0 0 .8em .8em;
+  box-shadow: 0 1px 1px $theme.textColor;
+  display: none;
+  /* Top margin should be 0.3em, but due to rounding errors, sometimes it would leave a pixel-high gap between the parent menu and the submenu. */
+  margin: 0.25em 0 0 -1.3em;
+  padding-bottom: .3em;
+  position: absolute;
+  z-index: 1000;
+}
+
+.menu-horizontal li:hover &gt; ul {
+  display: block;
+}
+
+/* The only way to have a menu with more than 2 levels without JavaScript is to use a fixed width. */
+.menu-horizontal.fixedWidth li li {
+  position: relative;
+}
+
+.menu-horizontal.fixedWidth ul ul {
+  width: 12em;
+}
+
+.menu-horizontal.fixedWidth ul ul ul {
+  left: 12em;
+  margin: 0;
+  top: 0;
+}
+.menu-vertical li:empty, .menu-horizontal li li:empty {
+  min-height: 1px !important;
+}</code>
+    </property>
+    <property>
+      <contentType>CSS</contentType>
+    </property>
+    <property>
+      <name>Custom menus</name>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>always</use>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.Skin</name>
+    <number>2</number>
+    <className>XWiki.StyleSheetExtension</className>
+    <guid>1e025e2b-fad6-418a-a85a-a8da06e20cb7</guid>
+    <class>
+      <name>XWiki.StyleSheetExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <contentType>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>contentType</name>
+        <number>6</number>
+        <prettyName>Content Type</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>CSS|LESS</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </contentType>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>#template("colorThemeInit.vm")
+
+.content-actions {
+  float: right;
+  margin: 0;
+  position: absolute;
+  right: 0px;
+  top: 0;
+  /* Keep above the page content */
+  z-index: 1000;
+}
+
+.page-actions .menu.menu-horizontal {
+  background-color: $theme.menuBackgroundColor;
+  #css3_backgroundLinearGradient({
+    'to': 'bottom',
+    'colors': [
+      {'color': $theme.menuGradientColor, 'position': '0%'},
+      {'color': $theme.menuBackgroundColor, 'position': '50%'}
+    ]
+  })
+  border: 0 none;
+  color: $theme.menuLinkColor;
+  font-size: 1em;
+  line-height: 1.2em;
+  padding: 0 0 0 10px;
+  text-shadow: none;
+}
+.page-actions .menu.menu-horizontal a:hover {
+  text-decoration: none !important;
+  text-shadow: 0 0 2px $theme.highlightColor;
+}
+
+.page-actions .menu-horizontal &gt; ul &gt; li {
+  /* (menu height - line height) / 2 = (1.8em - 1.2em) / 2 = 0.3em */
+  padding: 0.3em 1.3em 0.3em 0.3em;
+}
+.page-actions .menu-horizontal &gt; ul {
+  white-space: nowrap;
+}
+.page-actions .menu-horizontal ul ul {
+  background: none repeat scroll 0 0 $theme.menuBackgroundColor;
+  box-shadow: 0 1px 1px $theme.borderColor;
+  white-space: normal;
+}
+.page-actions .menu-horizontal input {
+  background: transparent !important;
+  /* Buttons without a border in IE don't trigger the :hover state */
+  border: 1px solid transparent !important;
+  color: inherit !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+  font-family: inherit !important;
+}
+.page-actions .menu-horizontal label:hover, .page-actions .menu-horizontal label:hover input {
+  cursor: pointer;
+  text-shadow: 0 0 2px $theme.highlightColor;
+}</code>
+    </property>
+    <property>
+      <contentType>CSS</contentType>
+    </property>
+    <property>
+      <name>Page content menu</name>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>always</use>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.Skin</name>
+    <number>3</number>
+    <className>XWiki.StyleSheetExtension</className>
+    <guid>bfda5000-2b5e-4bf3-9892-41d00dbf14c4</guid>
+    <class>
+      <name>XWiki.StyleSheetExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <contentType>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>contentType</name>
+        <number>6</number>
+        <prettyName>Content Type</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>CSS|LESS</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </contentType>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>#template('colorThemeInit.vm')
+
+#document-head .title-tab.active h1 {
+  border-radius: inherit;
+  box-shadow: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  text-shadow: inherit;
+  color: $theme.menuLinkColor;
+  background-color: $theme.menuBackgroundColor;
+  background-image: linear-gradient(to bottom, $theme.menuBackgroundColor 0%, $theme.menuGradientColor 50%);
+  border: 0 none;
+  border-bottom: 0 none;
+  margin: 0;
+  padding: 0.4em 11px;
+}
+
+#document-head .title-tab {
+  display: inline-block;
+  vertical-align: top;
+  line-height: 0;
+  cursor: default;
+  font-size: 1.2em;
+  letter-spacing: 2px;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 -3px 3px rgba(0, 0, 0, 0.15);
+  text-transform: none;
+  text-shadow: 0 0 1px $theme.buttonPrimaryTextColor;
+}
+
+#document-head .title-tab:not(.active) {
+  background-color: #EEE;
+  background-image: linear-gradient(to bottom, #EEE 0%, #DDD 50%);
+  font-weight: bold;
+  margin: 0;
+  padding: 0.4em 11px;
+}
+
+#document-head .title-tab a {
+  color: $theme.textColor;
+}
+
+#document-head .title-tab a:hover {
+  color: $theme.linkColor;
+  text-decoration: none;
+}</code>
+    </property>
+    <property>
+      <contentType>CSS</contentType>
+    </property>
+    <property>
+      <name>PhenoTips tabs</name>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>always</use>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.Skin</name>
+    <number>0</number>
+    <className>XWiki.XWikiRights</className>
+    <guid>4898ab6a-ab78-47af-962c-874bd555edf1</guid>
+    <class>
+      <name>XWiki.XWikiRights</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <allow>
+        <defaultValue>1</defaultValue>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>allow</displayType>
+        <name>allow</name>
+        <number>4</number>
+        <prettyName>Allow/Deny</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </allow>
+      <groups>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>input</displayType>
+        <multiSelect>1</multiSelect>
+        <name>groups</name>
+        <number>1</number>
+        <picker>1</picker>
+        <prettyName>Groups</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <size>5</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.GroupsClass</classType>
+      </groups>
+      <levels>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>1</multiSelect>
+        <name>levels</name>
+        <number>2</number>
+        <prettyName>Levels</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <size>3</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.LevelsClass</classType>
+      </levels>
+      <users>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>input</displayType>
+        <multiSelect>1</multiSelect>
+        <name>users</name>
+        <number>3</number>
+        <picker>1</picker>
+        <prettyName>Users</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <size>5</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.UsersClass</classType>
+      </users>
+    </class>
+    <property>
+      <allow>1</allow>
+    </property>
+    <property>
+      <groups>XWiki.XWikiAllGroup</groups>
+    </property>
+    <property>
+      <levels>view</levels>
+    </property>
+    <property>
+      <users>XWiki.XWikiGuest</users>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.Skin</name>
+    <number>0</number>
+    <className>XWiki.XWikiSkins</className>
+    <guid>deed3e95-9ca1-4315-85b2-4b70e05cd884</guid>
+    <class>
+      <name>XWiki.XWikiSkins</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <baseskin>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <name>baseskin</name>
+        <number>2</number>
+        <picker>0</picker>
+        <prettyName>Base Skin</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </baseskin>
+      <edit.vm>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <editor>PureText</editor>
+        <name>edit.vm</name>
+        <number>9</number>
+        <picker>0</picker>
+        <prettyName>Edit</prettyName>
+        <rows>15</rows>
+        <size>80</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </edit.vm>
+      <footer.vm>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <editor>PureText</editor>
+        <name>footer.vm</name>
+        <number>6</number>
+        <picker>0</picker>
+        <prettyName>Footer</prettyName>
+        <rows>15</rows>
+        <size>80</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </footer.vm>
+      <header.vm>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <editor>PureText</editor>
+        <name>header.vm</name>
+        <number>5</number>
+        <picker>0</picker>
+        <prettyName>Header</prettyName>
+        <rows>15</rows>
+        <size>80</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </header.vm>
+      <logo>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <name>logo</name>
+        <number>3</number>
+        <picker>0</picker>
+        <prettyName>Logo</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </logo>
+      <name>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <picker>0</picker>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <outputSyntax>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>outputSyntax</name>
+        <number>10</number>
+        <prettyName>Output Syntax</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>html/5.0=HTML 5|xhtml/1.0=XHTML 1.0</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </outputSyntax>
+      <style.css>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <editor>PureText</editor>
+        <name>style.css</name>
+        <number>4</number>
+        <picker>0</picker>
+        <prettyName>Style</prettyName>
+        <rows>15</rows>
+        <size>80</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </style.css>
+      <view.vm>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <editor>PureText</editor>
+        <name>view.vm</name>
+        <number>8</number>
+        <picker>0</picker>
+        <prettyName>View</prettyName>
+        <rows>15</rows>
+        <size>80</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </view.vm>
+      <viewheader.vm>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <editor>PureText</editor>
+        <name>viewheader.vm</name>
+        <number>7</number>
+        <picker>0</picker>
+        <prettyName>View Header</prettyName>
+        <rows>15</rows>
+        <size>80</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </viewheader.vm>
+    </class>
+    <property>
+      <baseskin>phenotips</baseskin>
+    </property>
+    <property>
+      <edit.vm/>
+    </property>
+    <property>
+      <footer.vm/>
+    </property>
+    <property>
+      <header.vm/>
+    </property>
+    <property>
+      <logo/>
+    </property>
+    <property>
+      <name/>
+    </property>
+    <property>
+      <outputSyntax>html/5.0</outputSyntax>
+    </property>
+    <property>
+      <style.css/>
+    </property>
+    <property>
+      <view.vm/>
+    </property>
+    <property>
+      <viewheader.vm/>
+    </property>
+  </object>
+</xwikidoc>

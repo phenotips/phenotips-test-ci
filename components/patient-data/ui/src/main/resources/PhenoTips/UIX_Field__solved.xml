@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/
+-->
+
+<xwikidoc version="1.1">
+  <web>PhenoTips</web>
+  <name>UIX_Field__solved</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <creationDate>1423242172000</creationDate>
+  <parent>PhenoTips.PatientSheet</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1425398147000</date>
+  <contentUpdateDate>1423242188000</contentUpdateDate>
+  <version>1.1</version>
+  <title>$services.localization.render('phenotips.UIXField.solved')</title>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>true</hidden>
+  <content/>
+  <object>
+    <name>PhenoTips.UIX_Field__solved</name>
+    <number>0</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>24d640c0-2469-4e64-97db-3e6d062d6bed</guid>
+    <class>
+      <name>XWiki.JavaScriptExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>document.observe('xwiki:dom:loaded', function() {
+    // The National Center for Biotechnology Information (NCBI) article validation service provided by Entrez Programming Utilities
+    // allows PMID (Pubmed ID) validation returning article meta info if ID is valid and error if not
+    var pubmedArticleServiceURL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&amp;retmode=json&amp;method=get&amp;id=";
+    var placeholder = "$!escapetool.javascript($services.localization.render('phenotips.UIXField.solved.pubmedId'))";
+
+    // Pubmed ID input elements in edit mode, if (XWiki.contextaction == "edit"):
+    var pubmedIdInputs = $$('.solved__pubmed_id input[type="text"]');
+    // in view mode:
+    var pubmedIdDisplayedValues = $$('.solved__pubmed_id .displayed-value li');
+
+    if (pubmedIdInputs.length &gt; 0) {
+        pubmedIdInputs.each(function(el) {
+            el.placeholder = placeholder;
+        });
+        pubmedIdInputs.invoke('observe', 'blur', function (event) {
+            var el = event.element();
+            if (XWiki.contextaction == "edit" &amp;&amp; isDuplicate(el)) {
+                el.up().insert(new Element("div", {"class" : "invalid"}).update("$!escapetool.javascript($services.localization.render('phenotips.UIXField.solved.pubmedId.duplicate'))"));
+            } else {
+                makeCorsRequest(el);
+            }
+        });
+        pubmedIdInputs.invoke('observe', 'focus', function (event) {
+            var el = event.element();
+            el.next('.invalid') &amp;&amp; el.next('.invalid').remove();
+            el.next('.article-info') &amp;&amp; el.next('.article-info').remove();
+        });
+    };
+
+    var isDuplicate = function(inputEl) {
+        var pubmedIdEls = $$('.solved__pubmed_id input[type="text"]');
+        var hasDuplicate = false;
+        pubmedIdEls.each( function (el) {
+            if (el.value == inputEl.value &amp;&amp; el !== inputEl) {
+                hasDuplicate = true;
+            }
+        });
+        return hasDuplicate;
+    }
+
+    var createCORSRequest = function(method, url) {
+        var xhr = new XMLHttpRequest();
+        if ("withCredentials" in xhr) {
+           // XHR for Chrome/Firefox/Opera/Safari.
+          xhr.open(method, url, true);
+        } else if (typeof XDomainRequest != "undefined") {
+          // XDomainRequest for IE.
+          xhr = new XDomainRequest();
+          xhr.open(method, url);
+        } else {
+          // CORS not supported.
+          xhr = null;
+        }
+        return xhr;
+    };
+
+    // Make the actual NCBI CORS request
+    // el - DOM element that is either Pubmed ID input element if edit mode,
+    //      or display element that contains Pubmed ID as inner HTML in view mode
+    // pubmedId - actual Pubmed ID value
+    var makeCorsRequest = function (el, pubmedId) {
+        if (!el) { return; }
+
+        var pubmedEl = el;
+        var id = pubmedId ? pubmedId : el.value;
+
+        // may be other input validation would be useful, but that is the question whether Pubmed ID is/will stay numeric only
+        // 1. NCBI's API can change
+        // 2. because NCBI can parse numerical ID out from input if numeric part comes first and letters are entered last, ex. "123qwe"
+        //    but it will reply that input is invalid if we send "qwe123"
+        // so for now only length validation
+        if (id.length &lt; 1) { return; }
+
+        var url = pubmedArticleServiceURL + id;
+
+        var xhr = createCORSRequest('GET', url);
+        if (!xhr) { return; } // CORS not supported
+
+        // Response handlers
+        xhr.onload = function() {
+            var response = JSON.parse(xhr.responseText);
+            if (response &amp;&amp; response.result &amp;&amp; response.result.uids &amp;&amp; response.result.uids.size() &gt; 0
+                &amp;&amp; response.result[response.result.uids[0]] &amp;&amp; !response.result[response.result.uids[0]].error) {
+                var data    = response.result[response.result.uids[0]];
+                var title   = data.title || '';
+                var source  = data.source ? data.source + '. ' : '';
+                var pubdate = data.pubdate ? data.pubdate + '; ' : '';
+                var authors = data.authors || [];
+                var pages   = data.pages ? data.pages + '. ' : ' ';
+                var volume  = data.volume || '';
+                var issue   = data.issue ? '(' + data.issue + ')' : '';
+                var elocid  = data.elocationid ? data.elocationid + '. ' : '';
+                var epubdate = data.epubdate ? 'Epub ' + data.epubdate + '. ': '';
+                var meta     = source + pubdate + volume + issue + ':' + pages + elocid + epubdate;
+
+                var container = new Element("div", {"class" : "article-info"});
+                if (XWiki.contextaction == "view") {
+                    container.setStyle({"margin-top" : 0});
+                }
+
+                if (XWiki.contextaction == "edit") {
+                    var deleteEl = new Element("div", {"class" : "delete", "title": "$!escapetool.javascript($services.localization.render('phenotips.UIXField.solved.pubmedInfo.deleteButton'))"}).update('×');
+                    deleteEl.observe('click', function () {
+                        pubmedEl.value = '';
+                        container.remove();
+                    });
+                    container.insert(deleteEl);
+                }
+
+                var summary = new Element("p", {"class" : "article-summary"}).update(meta);
+                var titleEl = new Element("div", {"class" : "article-title"}).update(new Element("a", {"href" : "https://www.ncbi.nlm.nih.gov/pubmed/?term=" + id, "target" : "_blank"}).insert(title));
+
+                var idsEl = new Element("div", {"class" : "article-ids"});
+                if (data.articleids &amp;&amp; data.articleids.length &gt; 0) {
+                    for (var i=0; i &lt; data.articleids.length; i++) {
+                        if (data.articleids[i].idtype == "pubmed") {
+                            idsEl.insert(new Element("span", {"class" : "p-id"}).update("PMID: " + data.articleids[i].value));
+                        }
+                        if (data.articleids[i].idtype == "doi") {
+                            idsEl.insert(new Element("span", {"class" : "p-id"}).update("DOI: " + data.articleids[i].value));
+                        }
+                    }
+                }
+                var authorsEl = new Element("div", {"class" : "article-authors"});
+                if (authors.length &gt; 0) {
+                    var authorsStr = authors[0].name;
+                    for (var i=1; i &lt; authors.length; i++) {
+                        authorsStr += ', ' + authors[i].name;
+                    }
+                    authorsStr += '.';
+                    authorsEl.insert(authorsStr);
+                }
+                container.insert(summary).insert(titleEl).insert(authorsEl).insert(idsEl);
+                if (XWiki.contextaction == "view") {
+                    pubmedEl.hide();
+                }
+
+                pubmedEl.up().insert(container);
+            } else {
+                if (XWiki.contextaction == "edit") {
+                    pubmedEl.up().insert(new Element("div", {"class" : "invalid"}).update("$!escapetool.javascript($services.localization.render('phenotips.UIXField.solved.pubmedId.invalid'))"));
+                }
+            }
+        };
+
+        xhr.onerror = function() {
+          return;
+        };
+
+        xhr.send();
+    };
+
+    // display article summary for already entered Pubmed IDs in both view and edit modes
+    var elems = (XWiki.contextaction == "view") ? pubmedIdDisplayedValues : pubmedIdInputs;
+    elems.each(function (el) {
+        var value = (XWiki.contextaction == "view") ? el.innerHTML : el.value;
+        makeCorsRequest(el, value);
+    });
+
+    // Attach event listeners to the Pubmed ID inputs that are just added in edit mode via FreeMultiselect Widget
+    var attachListeners = function(event) {
+        if (event &amp;&amp; event.memo.newInput &amp;&amp; event.memo.newInput.name.includes('solved__pubmed_id')) {
+            var pubmedIdInput = event.memo.newInput;
+            pubmedIdInput.placeholder = placeholder;
+            pubmedIdInput.observe('blur', function (event) {
+                if (XWiki.contextaction == "edit" &amp;&amp; isDuplicate(pubmedIdInput)) {
+                    pubmedIdInput.up().insert(new Element("div", {"class" : "invalid"}).update("$!escapetool.javascript($services.localization.render('phenotips.UIXField.solved.pubmedId.duplicate'))"));
+                } else {
+                    makeCorsRequest(pubmedIdInput);
+                }
+            });
+            pubmedIdInput.observe('focus', function (event) {
+                pubmedIdInput.next('.invalid') &amp;&amp; pubmedIdInput.next('.invalid').remove();
+                pubmedIdInput.next('.article-info') &amp;&amp; pubmedIdInput.next('.article-info').remove();
+            });
+        }
+    };
+
+    document.observe("new:xwiki-free-multiselect-input", attachListeners);
+});</code>
+    </property>
+    <property>
+      <name>Validate Pubmed ID</name>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>onDemand</use>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.UIX_Field__solved</name>
+    <number>1</number>
+    <className>XWiki.StyleSheetExtension</className>
+    <guid>b88ad070-c238-49ed-9c1c-afccc62e8621</guid>
+    <class>
+      <name>XWiki.StyleSheetExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <contentType>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>contentType</name>
+        <number>6</number>
+        <prettyName>Content Type</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>CSS|LESS</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </contentType>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>.article-info {
+  background: #FFFFFF;
+  border: 0 none;
+  border-radius: 0.1em 0.1em 0.1em;
+  color: #636B75;
+  display: inline-block;
+  margin: 0 0 0.7em 0.1em;
+  padding: 0.75em 1em;
+  width: 95%;
+  white-space: normal;
+  text-align: left;
+}
+.article-info .article-title {
+  color: #0089DC;
+  text-decoration: none;
+  margin: 5px 0 5px 0;
+  font-style: normal;
+  cursor: pointer;
+}
+.article-info .article-ids {
+  font-size: 0.85em;
+  margin-top: 10px;
+  opacity: 0.8;
+}
+.article-info .article-ids .p-id {
+  padding-right: 10px;
+}
+.article-info .article-authors {
+  font-size: 0.82em;
+  font-style: italic;
+}
+.article-info .article-summary, .article-authors {
+  font-size: 0.8em;
+  opacity: .7;
+}
+.invalid {
+  color: #CC3333;
+  font-size: 0.8em;
+  position: absolute;
+  margin-top: -1.2em;
+}
+.delete {
+  float : right;
+  margin-right: -0.5em;
+  margin-top: -0.6em;
+  cursor: pointer;
+}
+.delete:hover {
+  color : red;
+}
+</code>
+    </property>
+    <property>
+      <contentType>CSS</contentType>
+    </property>
+    <property>
+      <name>Pubmed ID validation UI</name>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>onDemand</use>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.UIX_Field__solved</name>
+    <number>2</number>
+    <className>XWiki.UIExtensionClass</className>
+    <guid>97415736-3ecf-4460-9d29-c30196a8833c</guid>
+    <class>
+      <name>XWiki.UIExtensionClass</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <content>
+        <disabled>0</disabled>
+        <name>content</name>
+        <number>3</number>
+        <prettyName>Extension Content</prettyName>
+        <rows>10</rows>
+        <size>40</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </content>
+      <extensionPointId>
+        <disabled>0</disabled>
+        <name>extensionPointId</name>
+        <number>1</number>
+        <prettyName>Extension Point ID</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </extensionPointId>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>2</number>
+        <prettyName>Extension ID</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parameters>
+        <disabled>0</disabled>
+        <name>parameters</name>
+        <number>4</number>
+        <prettyName>Extension Parameters</prettyName>
+        <rows>10</rows>
+        <size>40</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </parameters>
+      <scope>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>scope</name>
+        <number>5</number>
+        <prettyName>Extension Scope</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>wiki=Current Wiki|user=Current User|global=Global</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </scope>
+    </class>
+    <property>
+      <content>{{include reference="PhenoTips.PatientSheetMacros" /}}
+
+{{velocity}}
+$xwiki.jsx.use('PhenoTips.UIX_Field__solved')##
+$xwiki.ssx.use('PhenoTips.UIX_Field__solved')##
+#__hasBooleanDataToDisplay('solved', $showSolved)
+##
+##
+#if ($showSolved)
+  (% class="controlled-group complete-hide exclude" %)(((
+  (% class="fieldset unaffected controller" %)(((
+  #if ($xcontext.action == 'edit')
+    $doc.display('solved') #__label('solved' '' "$class.get('solved').translatedPrettyName") {{icon name="question-circle" cssClass="xHelpButton" title="$services.localization.render("PhenoTips.PatientClass_solvedCase_hint").replace('"', '~~~"')"/}}
+
+  #else
+    #if ($showSolved)$class.get('solved').translatedPrettyName#end
+  #end
+  )))
+  (% class="controlled" %) (((
+     #__displayIfNotEmpty2Col('solved__pubmed_id')
+     #__displayIfNotEmpty('solved__notes')
+  )))## controlled (pubmed/gene)
+  )))## controlled-group
+#end## section has content
+{{/velocity}}</content>
+    </property>
+    <property>
+      <extensionPointId>org.phenotips.patientSheet.section.diagnosis-info</extensionPointId>
+    </property>
+    <property>
+      <name>org.phenotips.patientSheet.field.solved</name>
+    </property>
+    <property>
+      <parameters>title=$services.localization.render('phenotips.UIXField.solved')
+enabled=true
+required=
+order=4
+fields=solved,solved__pubmed_id,solved__notes</parameters>
+    </property>
+    <property>
+      <scope>wiki</scope>
+    </property>
+  </object>
+</xwikidoc>

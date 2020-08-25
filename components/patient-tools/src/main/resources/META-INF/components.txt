@@ -1,0 +1,2 @@
+org.phenotips.tools.PhenotypeDisplayTools
+org.phenotips.tools.PhenotypeMappingService

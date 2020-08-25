@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.phenotips</groupId>
+    <artifactId>phenotips-parent</artifactId>
+    <version>1.4-SNAPSHOT</version>
+  </parent>
+  <artifactId>phenotips-distribution</artifactId>
+  <packaging>pom</packaging>
+  <name>PhenoTips - Distribution packages</name>
+
+  <properties>
+    <!-- Distribution packages have no Java code, speedup by skipping java checks -->
+    <checkstyle.skip>true</checkstyle.skip>
+    <clirr.skip>true</clirr.skip>
+    <dependencyCheck.skip>true</dependencyCheck.skip>
+  </properties>
+
+  <modules>
+    <module>hsqldb-database</module>
+    <module>war</module>
+    <module>standalone</module>
+    <module>dmg</module>
+  </modules>
+
+  <profiles>
+    <profile>
+      <id>rpm</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+        <file>
+          <exists>/usr/bin/rpmbuild</exists>
+        </file>
+      </activation>
+      <modules>
+        <module>rpm</module>
+      </modules>
+    </profile>
+  </profiles>
+</project>

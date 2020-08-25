@@ -1,0 +1,615 @@
+/*
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/
+ */
+package org.phenotips.data.internal.controller;
+
+import org.phenotips.Constants;
+import org.phenotips.data.IndexedPatientData;
+import org.phenotips.data.Patient;
+import org.phenotips.data.PatientData;
+import org.phenotips.data.PatientDataController;
+import org.phenotips.data.PatientWritePolicy;
+import org.phenotips.vocabulary.Vocabulary;
+import org.phenotips.vocabulary.VocabularyManager;
+import org.phenotips.vocabulary.VocabularyTerm;
+
+import org.xwiki.component.annotation.Component;
+import org.xwiki.model.EntityType;
+import org.xwiki.model.reference.EntityReference;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Provider;
+import javax.inject.Singleton;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+
+import com.xpn.xwiki.XWikiContext;
+import com.xpn.xwiki.XWikiException;
+import com.xpn.xwiki.doc.XWikiDocument;
+import com.xpn.xwiki.objects.BaseObject;
+import com.xpn.xwiki.objects.BaseStringProperty;
+import com.xpn.xwiki.objects.StringListProperty;
+
+/**
+ * Handles the patients gene variants.
+ *
+ * @version $Id$
+ * @since 1.3M1
+ */
+@Component(roles = { PatientDataController.class })
+@Named("variant")
+@Singleton
+public class VariantListController extends AbstractComplexController<Map<String, String>>
+{
+    /** The XClass used for storing variant data. */
+    static final EntityReference VARIANT_CLASS_REFERENCE = new EntityReference("GeneVariantClass",
+        EntityType.DOCUMENT, Constants.CODE_SPACE_REFERENCE);
+
+    private static final String VARIANTS_STRING = "variants";
+
+    private static final String CONTROLLER_NAME = VARIANTS_STRING;
+
+    private static final String VARIANTS_ENABLING_FIELD_NAME = "variants";
+
+    private static final String INTERNAL_VARIANT_KEY = "cdna";
+
+    private static final String INTERNAL_GENE_KEY = "gene";
+
+    private static final String INTERNAL_PROTEIN_KEY = "protein";
+
+    private static final String INTERNAL_TRANSCRIPT_KEY = "transcript";
+
+    private static final String INTERNAL_DBSNP_KEY = "dbsnp";
+
+    private static final String INTERNAL_ZYGOSITY_KEY = "zygosity";
+
+    private static final String INTERNAL_EFFECT_KEY = "effect";
+
+    private static final String INTERNAL_INTERPRETATION_KEY = "interpretation";
+
+    private static final String INTERNAL_INHERITANCE_KEY = "inheritance";
+
+    private static final String INTERNAL_EVIDENCE_KEY = "evidence";
+
+    private static final String INTERNAL_SEGREGATION_KEY = "segregation";
+
+    private static final String INTERNAL_SANGER_KEY = "sanger";
+
+    private static final String INTERNAL_CHROMOSOME_KEY = "chromosome";
+
+    private static final String INTERNAL_START_POSITION_KEY = "start_position";
+
+    private static final String INTERNAL_END_POSITION_KEY = "end_position";
+
+    private static final String INTERNAL_REFERENCE_GENOME_KEY = "reference_genome";
+
+    private static final String JSON_VARIANT_KEY = INTERNAL_VARIANT_KEY;
+
+    private static final String JSON_GENE_KEY = INTERNAL_GENE_KEY;
+
+    // older 1.3-xx gene key in variant json
+    private static final String JSON_OLD_GENE_KEY = "genesymbol";
+
+    private static final String JSON_PROTEIN_KEY = INTERNAL_PROTEIN_KEY;
+
+    private static final String JSON_TRANSCRIPT_KEY = INTERNAL_TRANSCRIPT_KEY;
+
+    private static final String JSON_DBSNP_KEY = INTERNAL_DBSNP_KEY;
+
+    private static final String JSON_ZYGOSITY_KEY = INTERNAL_ZYGOSITY_KEY;
+
+    private static final String JSON_EFFECT_KEY = INTERNAL_EFFECT_KEY;
+
+    private static final String JSON_INTERPRETATION_KEY = INTERNAL_INTERPRETATION_KEY;
+
+    private static final String JSON_INHERITANCE_KEY = INTERNAL_INHERITANCE_KEY;
+
+    private static final String JSON_EVIDENCE_KEY = INTERNAL_EVIDENCE_KEY;
+
+    private static final String JSON_SEGREGATION_KEY = INTERNAL_SEGREGATION_KEY;
+
+    private static final String JSON_SANGER_KEY = INTERNAL_SANGER_KEY;
+
+    private static final String JSON_CHROMOSOME_KEY = INTERNAL_CHROMOSOME_KEY;
+
+    private static final String JSON_START_POSITION_KEY = INTERNAL_START_POSITION_KEY;
+
+    private static final String JSON_END_POSITION_KEY = INTERNAL_END_POSITION_KEY;
+
+    private static final String JSON_REFERENCE_GENOME_KEY = INTERNAL_REFERENCE_GENOME_KEY;
+
+    private static final List<String> ZYGOSITY_VALUES = Arrays.asList("heterozygous", "homozygous", "hemizygous");
+
+    private static final List<String> EFFECT_VALUES = Arrays.asList("missense", "nonsense", "insertion_in_frame",
+        "insertion_frameshift", "deletion_in_frame", "deletion_frameshift", "indel_in_frame", "indel_frameshift",
+        "duplication", "repeat_expansion", "synonymous", "other");
+
+    private static final List<String> INTERPRETATION_VALUES = Arrays.asList("pathogenic", "likely_pathogenic",
+        "variant_u_s", "likely_benign", "benign", "investigation_n");
+
+    private static final List<String> INHERITANCE_VALUES = Arrays.asList("denovo_germline", "denovo_s_mosaicism",
+        "maternal", "paternal", "unknown");
+
+    private static final List<String> EVIDENCE_VALUES = Arrays.asList("rare", "predicted", "reported");
+
+    private static final List<String> SEGREGATION_VALUES = Arrays.asList("segregates", "not_segregates");
+
+    private static final List<String> SANGER_VALUES = Arrays.asList("positive", "negative");
+
+    private static final List<String> CHROMOSOME_VALUES = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9",
+        "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "X", "Y");
+
+    private static final List<String> REFERENCE_GENOME_VALUES = Arrays.asList("GRCh37", "GRCh38", "NCBI36");
+
+    private static final Map<String, String> INTERNAL_TO_JSON_KEYS = new HashMap<>();
+    static {
+        INTERNAL_TO_JSON_KEYS.put(JSON_VARIANT_KEY, INTERNAL_VARIANT_KEY);
+        INTERNAL_TO_JSON_KEYS.put(JSON_GENE_KEY, INTERNAL_GENE_KEY);
+        INTERNAL_TO_JSON_KEYS.put(JSON_PROTEIN_KEY, INTERNAL_PROTEIN_KEY);
+        INTERNAL_TO_JSON_KEYS.put(JSON_TRANSCRIPT_KEY, INTERNAL_TRANSCRIPT_KEY);
+        INTERNAL_TO_JSON_KEYS.put(JSON_DBSNP_KEY, INTERNAL_DBSNP_KEY);
+        INTERNAL_TO_JSON_KEYS.put(JSON_ZYGOSITY_KEY, INTERNAL_ZYGOSITY_KEY);
+        INTERNAL_TO_JSON_KEYS.put(JSON_EFFECT_KEY, INTERNAL_EFFECT_KEY);
+        INTERNAL_TO_JSON_KEYS.put(JSON_INTERPRETATION_KEY, INTERNAL_INTERPRETATION_KEY);
+        INTERNAL_TO_JSON_KEYS.put(JSON_INHERITANCE_KEY, INTERNAL_INHERITANCE_KEY);
+        INTERNAL_TO_JSON_KEYS.put(JSON_EVIDENCE_KEY, INTERNAL_EVIDENCE_KEY);
+        INTERNAL_TO_JSON_KEYS.put(JSON_SEGREGATION_KEY, INTERNAL_SEGREGATION_KEY);
+        INTERNAL_TO_JSON_KEYS.put(JSON_SANGER_KEY, INTERNAL_SANGER_KEY);
+        INTERNAL_TO_JSON_KEYS.put(JSON_CHROMOSOME_KEY, INTERNAL_CHROMOSOME_KEY);
+        INTERNAL_TO_JSON_KEYS.put(JSON_START_POSITION_KEY, INTERNAL_START_POSITION_KEY);
+        INTERNAL_TO_JSON_KEYS.put(JSON_END_POSITION_KEY, INTERNAL_END_POSITION_KEY);
+        INTERNAL_TO_JSON_KEYS.put(JSON_REFERENCE_GENOME_KEY, INTERNAL_REFERENCE_GENOME_KEY);
+    }
+
+    /** The vocabulary manager that actually does all the work. */
+    @Inject
+    private VocabularyManager vocabularyManager;
+
+    @Inject
+    private Logger logger;
+
+    private Vocabulary hgnc;
+
+    /** Provides access to the current execution context. */
+    @Inject
+    private Provider<XWikiContext> xcontextProvider;
+
+    @Override
+    public String getName()
+    {
+        return CONTROLLER_NAME;
+    }
+
+    @Override
+    protected String getJsonPropertyName()
+    {
+        return CONTROLLER_NAME;
+    }
+
+    @Override
+    protected List<String> getProperties()
+    {
+        return Arrays.asList(INTERNAL_VARIANT_KEY, INTERNAL_GENE_KEY, INTERNAL_PROTEIN_KEY,
+            INTERNAL_TRANSCRIPT_KEY, INTERNAL_DBSNP_KEY, INTERNAL_ZYGOSITY_KEY,
+            INTERNAL_EFFECT_KEY, INTERNAL_INTERPRETATION_KEY, INTERNAL_INHERITANCE_KEY, INTERNAL_EVIDENCE_KEY,
+            INTERNAL_SEGREGATION_KEY, INTERNAL_SANGER_KEY, INTERNAL_CHROMOSOME_KEY, INTERNAL_START_POSITION_KEY,
+            INTERNAL_END_POSITION_KEY, INTERNAL_REFERENCE_GENOME_KEY);
+    }
+
+    @Override
+    protected List<String> getBooleanFields()
+    {
+        return Collections.emptyList();
+    }
+
+    @Override
+    protected List<String> getCodeFields()
+    {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public PatientData<Map<String, String>> load(Patient patient)
+    {
+        try {
+            XWikiDocument doc = patient.getXDocument();
+            List<BaseObject> variantXWikiObjects = doc.getXObjects(VARIANT_CLASS_REFERENCE);
+            if (variantXWikiObjects == null || variantXWikiObjects.isEmpty()) {
+                return null;
+            }
+
+            List<Map<String, String>> allVariants = new LinkedList<>();
+            for (BaseObject variantObject : variantXWikiObjects) {
+                if (variantObject == null || variantObject.getFieldList().isEmpty()) {
+                    continue;
+                }
+                Map<String, String> singleVariant = new LinkedHashMap<>();
+                for (String property : getProperties()) {
+                    String value = getFieldValue(variantObject, property);
+                    if (value == null) {
+                        continue;
+                    }
+                    singleVariant.put(property, value);
+                }
+                allVariants.add(singleVariant);
+            }
+            if (allVariants.isEmpty()) {
+                return null;
+            } else {
+                return new IndexedPatientData<>(getName(), allVariants);
+            }
+        } catch (Exception e) {
+            this.logger.error(ERROR_MESSAGE_LOAD_FAILED, e.getMessage());
+        }
+        return null;
+    }
+
+    private String getFieldValue(BaseObject variantObject, String property)
+    {
+        if (INTERNAL_EVIDENCE_KEY.equals(property)) {
+            StringListProperty fields = (StringListProperty) variantObject.getField(property);
+            if (fields == null || fields.getList().size() == 0) {
+                return null;
+            }
+            return fields.getTextValue();
+        } else if (INTERNAL_START_POSITION_KEY.equals(property) || INTERNAL_END_POSITION_KEY.equals(property)) {
+            int value = variantObject.getIntValue(property, -1);
+            return value == -1 ? null : Integer.toString(value);
+        } else {
+            BaseStringProperty field = (BaseStringProperty) variantObject.getField(property);
+            return field == null ? null : field.getValue();
+        }
+    }
+
+    @SuppressWarnings("checkstyle:CyclomaticComplexity")
+    @Override
+    public void writeJSON(Patient patient, JSONObject json, Collection<String> selectedFieldNames)
+    {
+        if (selectedFieldNames != null && !selectedFieldNames.contains(VARIANTS_ENABLING_FIELD_NAME)) {
+            return;
+        }
+
+        PatientData<Map<String, String>> data = patient.getData(getName());
+        if (data == null || data.size() == 0) {
+            if (selectedFieldNames != null && selectedFieldNames.contains(VARIANTS_ENABLING_FIELD_NAME)) {
+                json.put(getJsonPropertyName(), new JSONArray());
+            }
+            return;
+        }
+
+        Iterator<Map<String, String>> iterator = data.iterator();
+
+        // put() is placed here because we want to create the property iff at least one field is set/enabled
+        // (by this point we know there is some data since iterator.hasNext() == true)
+        json.put(getJsonPropertyName(), new JSONArray());
+        JSONArray container = json.getJSONArray(getJsonPropertyName());
+
+        while (iterator.hasNext()) {
+            Map<String, String> item = iterator.next();
+
+            if (!StringUtils.isBlank(item.get(INTERNAL_VARIANT_KEY))) {
+                JSONObject nextVariant = new JSONObject();
+                for (String key : INTERNAL_TO_JSON_KEYS.keySet()) {
+                    if (!StringUtils.isBlank(item.get(key))) {
+                        if (INTERNAL_EVIDENCE_KEY.equals(key)) {
+                            nextVariant.put(key, new JSONArray(item.get(INTERNAL_TO_JSON_KEYS.get(key)).split("\\|")));
+                        } else {
+                            nextVariant.put(key, item.get(INTERNAL_TO_JSON_KEYS.get(key)));
+                        }
+                    }
+                }
+                container.put(nextVariant);
+            }
+        }
+    }
+
+    @Override
+    public PatientData<Map<String, String>> readJSON(JSONObject json)
+    {
+        if (json == null || !json.has(getJsonPropertyName())) {
+            return null;
+        }
+
+        List<String> enumValueKeys =
+            Arrays.asList(INTERNAL_ZYGOSITY_KEY, INTERNAL_EFFECT_KEY, INTERNAL_INTERPRETATION_KEY,
+                INTERNAL_INHERITANCE_KEY, INTERNAL_SEGREGATION_KEY,
+                INTERNAL_SANGER_KEY);
+
+        Map<String, List<String>> enumValues = new LinkedHashMap<>();
+        enumValues.put(INTERNAL_ZYGOSITY_KEY, ZYGOSITY_VALUES);
+        enumValues.put(INTERNAL_EFFECT_KEY, EFFECT_VALUES);
+        enumValues.put(INTERNAL_INTERPRETATION_KEY, INTERPRETATION_VALUES);
+        enumValues.put(INTERNAL_INHERITANCE_KEY, INHERITANCE_VALUES);
+        enumValues.put(INTERNAL_EVIDENCE_KEY, EVIDENCE_VALUES);
+        enumValues.put(INTERNAL_SEGREGATION_KEY, SEGREGATION_VALUES);
+        enumValues.put(INTERNAL_SANGER_KEY, SANGER_VALUES);
+        enumValues.put(INTERNAL_CHROMOSOME_KEY, CHROMOSOME_VALUES);
+        enumValues.put(INTERNAL_REFERENCE_GENOME_KEY, REFERENCE_GENOME_VALUES);
+
+        try {
+            JSONArray variantsJson = json.getJSONArray(this.getJsonPropertyName());
+            List<Map<String, String>> allVariants = new LinkedList<>();
+            List<String> variantSymbols = new ArrayList<>();
+            for (int i = 0; i < variantsJson.length(); ++i) {
+                JSONObject variantJson = variantsJson.getJSONObject(i);
+
+                // discard it if variant cDNA is not present in the variantJson, or is whitespace, empty or duplicate
+                if (StringUtils.isBlank(variantJson.optString(INTERNAL_VARIANT_KEY))
+                    || variantSymbols.contains(variantJson.getString(INTERNAL_VARIANT_KEY))
+                    // storing variant without gene name is pointless as it can not be displayed
+                    || StringUtils.isBlank(variantJson.optString(JSON_GENE_KEY))
+                        && StringUtils.isBlank(variantJson.optString(JSON_OLD_GENE_KEY))) {
+                    continue;
+                }
+
+                Map<String, String> singleVariant = parseVariantJson(variantJson, enumValues, enumValueKeys);
+                if (singleVariant.isEmpty()) {
+                    continue;
+                }
+
+                allVariants.add(singleVariant);
+                variantSymbols.add(variantJson.getString(INTERNAL_VARIANT_KEY));
+            }
+
+            return new IndexedPatientData<>(getName(), allVariants);
+        } catch (Exception e) {
+            this.logger.error("Could not load variants from JSON", e.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * Supports both 1.3-m5 and older 1.3-xx format. 1.3-m5 and newer variant JSON format: {"gene": ENSEMBL_Id [, ...] }
+     * 1.3-old format: {"genesymbol": HGNC_Symbol [, ...] }
+     */
+    private Map<String, String> parseVariantJson(JSONObject variantJson, Map<String, List<String>> enumValues,
+        List<String> enumValueKeys)
+    {
+        Map<String, String> singleVariant = new LinkedHashMap<>();
+        // v1.2.x json compatibility
+        // gene ID is either the "gene" field, or, if missing, the "genesymbol" field
+        String geneId = variantJson.optString(JSON_GENE_KEY);
+        if (StringUtils.isBlank(geneId)) {
+            geneId = variantJson.optString(JSON_OLD_GENE_KEY);
+            geneId = getEnsemblId(geneId);
+        }
+        singleVariant.put(INTERNAL_GENE_KEY, geneId);
+        for (String property : this.getJSONProperties()) {
+            if (variantJson.has(property)) {
+                parseVariantProperty(property, variantJson, enumValues, singleVariant, enumValueKeys);
+            }
+        }
+        return singleVariant;
+    }
+
+    @SuppressWarnings("checkstyle:CyclomaticComplexity")
+    private void parseVariantProperty(String property, JSONObject variantJson, Map<String, List<String>> enumValues,
+        Map<String, String> singleVariant, List<String> enumValueKeys)
+    {
+        String field = "";
+        if (INTERNAL_EVIDENCE_KEY.equals(property) && variantJson.getJSONArray(property).length() > 0) {
+            JSONArray fieldArray = variantJson.getJSONArray(property);
+            for (Object value : fieldArray) {
+                if (enumValues.get(property).contains(value)) {
+                    field += "|" + value;
+                }
+            }
+            singleVariant.put(property, field);
+        } else if ((INTERNAL_START_POSITION_KEY.equals(property) || INTERNAL_END_POSITION_KEY.equals(property))
+            && !StringUtils.isBlank(variantJson.getString(property))) {
+            String value = variantJson.optString(property);
+            if (NumberUtils.isDigits(value)) {
+                singleVariant.put(property, value);
+            }
+        } else if (enumValueKeys.contains(property) && !StringUtils.isBlank(variantJson.getString(property))) {
+            field = variantJson.getString(property);
+            if (enumValues.get(property).contains(field.toLowerCase())) {
+                singleVariant.put(property, field);
+            }
+        } else if (!StringUtils.isBlank(variantJson.getString(property))) {
+            field = variantJson.getString(property);
+            singleVariant.put(property, field);
+        }
+    }
+
+    private List<String> getJSONProperties()
+    {
+        return Arrays.asList(JSON_VARIANT_KEY, JSON_PROTEIN_KEY, JSON_TRANSCRIPT_KEY, JSON_DBSNP_KEY,
+            JSON_ZYGOSITY_KEY, JSON_EFFECT_KEY, JSON_INTERPRETATION_KEY, JSON_INHERITANCE_KEY, JSON_EVIDENCE_KEY,
+            JSON_SEGREGATION_KEY, JSON_SANGER_KEY, JSON_CHROMOSOME_KEY, JSON_START_POSITION_KEY, JSON_END_POSITION_KEY,
+            JSON_REFERENCE_GENOME_KEY);
+    }
+
+    /**
+     * Gets EnsemblID corresponding to the HGNC symbol.
+     *
+     * @param gene the string representation a gene, either geneSymbol (e.g. NOD2) or some other kind of ID
+     * @return if gene is a valid geneSymbol, the corresponding Ensembl ID. Otherwise the original gene value
+     */
+    private String getEnsemblId(String gene)
+    {
+        final VocabularyTerm term = this.getTerm(gene);
+        @SuppressWarnings("unchecked")
+        final List<String> ensemblIdList = term != null ? (List<String>) term.get("ensembl_gene_id") : null;
+        final String ensemblId = ensemblIdList != null && !ensemblIdList.isEmpty() ? ensemblIdList.get(0) : null;
+        // retain information as is if we can't find Ensembl ID.
+        return StringUtils.isBlank(ensemblId) ? gene : ensemblId;
+    }
+
+    private VocabularyTerm getTerm(String gene)
+    {
+        // lazy-initialize HGNC
+        if (this.hgnc == null) {
+            this.hgnc = getHGNCVocabulary();
+            if (this.hgnc == null) {
+                return null;
+            }
+        }
+        return this.hgnc.getTerm(gene);
+    }
+
+    private Vocabulary getHGNCVocabulary()
+    {
+        try {
+            return this.vocabularyManager.getVocabulary("HGNC");
+        } catch (Exception ex) {
+            // this should not happen except when mocking, but does not hurt to catch in any case
+            this.logger.error("Error loading component [{}]", ex.getMessage(), ex);
+            return null;
+        }
+    }
+
+    @Override
+    public void save(Patient patient)
+    {
+        save(patient, PatientWritePolicy.UPDATE);
+    }
+
+    @Override
+    public void save(@Nonnull final Patient patient, @Nonnull final PatientWritePolicy policy)
+    {
+        try {
+            final XWikiDocument docX = patient.getXDocument();
+            final PatientData<Map<String, String>> variants = patient.getData(getName());
+            if (variants == null) {
+                if (PatientWritePolicy.REPLACE.equals(policy)) {
+                    docX.removeXObjects(VARIANT_CLASS_REFERENCE);
+                }
+            } else {
+                if (!variants.isIndexed()) {
+                    this.logger.error(ERROR_MESSAGE_DATA_IN_MEMORY_IN_WRONG_FORMAT);
+                    return;
+                }
+                saveVariants(docX, patient, variants, policy, this.xcontextProvider.get());
+            }
+        } catch (final Exception ex) {
+            this.logger.error("Failed to save variant list data: {}", ex.getMessage(), ex);
+        }
+    }
+
+    /**
+     * Saves {@code variants} data for {@code patient} according to the provided {@code policy}.
+     *
+     * @param docX the {@link XWikiDocument} for patient
+     * @param patient the {@link Patient} object of interest
+     * @param variants the newly added variant data
+     * @param policy the policy according to which data should be saved
+     * @param context the {@link XWikiContext} object
+     */
+    private void saveVariants(
+        @Nonnull final XWikiDocument docX,
+        @Nonnull final Patient patient,
+        @Nonnull final PatientData<Map<String, String>> variants,
+        @Nonnull final PatientWritePolicy policy,
+        @Nonnull final XWikiContext context)
+    {
+        if (PatientWritePolicy.MERGE.equals(policy)) {
+            final Map<String, Map<String, String>> mergedVariants = getMergedVariantsMap(variants, load(patient));
+            docX.removeXObjects(VARIANT_CLASS_REFERENCE);
+            mergedVariants.forEach((id, variant) -> saveVariant(docX, variant, context));
+        } else {
+            docX.removeXObjects(VARIANT_CLASS_REFERENCE);
+            variants.forEach(variant -> saveVariant(docX, variant, context));
+        }
+    }
+
+    /**
+     * Saves a {@code variant} for the provided {@code patient}.
+     *
+     * @param docX the {@link XWikiDocument} for patient
+     * @param variant a variant to be saved
+     * @param context the {@link XWikiContext} object
+     */
+    private void saveVariant(
+        @Nonnull final XWikiDocument docX,
+        @Nonnull final Map<String, String> variant,
+        @Nonnull final XWikiContext context)
+    {
+        try {
+            final BaseObject xwikiObject = docX.newXObject(VARIANT_CLASS_REFERENCE, context);
+            getProperties().forEach(property -> setVariantProperty(variant, property, xwikiObject, context));
+        } catch (final XWikiException e) {
+            this.logger.error("Failed to save a specific variant: [{}]", e.getMessage());
+        }
+    }
+
+    /**
+     * Saves gene {@code property} value provided in {@code variant} to the {@code xwikiObject}.
+     *
+     * @param variant a variant to be saved
+     * @param property a property of interest
+     * @param xwikiObject the {@link BaseObject} that will store the {@code variant} data
+     * @param context the {@link XWikiContext} object
+     */
+    private void setVariantProperty(
+        @Nonnull final Map<String, String> variant,
+        @Nonnull final String property,
+        @Nonnull final BaseObject xwikiObject,
+        @Nonnull final XWikiContext context)
+    {
+        final String value = variant.get(property);
+        if (value != null) {
+            if (INTERNAL_START_POSITION_KEY.equals(property) || INTERNAL_END_POSITION_KEY.equals(property)) {
+                xwikiObject.setIntValue(property, Integer.valueOf(value));
+            } else {
+                xwikiObject.set(property, value, context);
+            }
+        }
+    }
+
+    /**
+     * Create a map of variant ID to variant properties that merges existing and updated variant data.
+     *
+     * @param variants the variant data to add to patient
+     * @param storedVariants the variant data already stored in patient
+     * @return a map of variant ID to variant properties
+     */
+    private Map<String, Map<String, String>> getMergedVariantsMap(
+        @Nullable final PatientData<Map<String, String>> variants,
+        @Nullable final PatientData<Map<String, String>> storedVariants)
+    {
+        // If map keys collide, merge variant data in favor of the new value
+        return Stream.of(storedVariants, variants)
+            .filter(Objects::nonNull)
+            .flatMap(s -> StreamSupport.stream(s.spliterator(), false))
+            .collect(Collectors.toMap(variant
+                -> variant.get(INTERNAL_VARIANT_KEY), Function.identity(), (v1, v2) -> v2, LinkedHashMap::new));
+    }
+}

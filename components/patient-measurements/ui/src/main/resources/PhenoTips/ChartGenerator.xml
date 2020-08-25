@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/
+-->
+
+<xwikidoc version="1.1">
+  <web>PhenoTips</web>
+  <name>ChartGenerator</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <creationDate>1401822204000</creationDate>
+  <parent>PhenoTips.ChartService</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1401822204000</date>
+  <contentUpdateDate>1401822204000</contentUpdateDate>
+  <version>1.1</version>
+  <title/>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>true</hidden>
+  <content>#macro (getPercentileValue $age $p)
+  #set ($v = $services.measurements.get($chartConfiguration.measurementType).percentileToValue($sex, $age, $p))
+#end
+#macro (getSDValue $age $d)
+  #set ($v = $services.measurements.get($chartConfiguration.measurementType).standardDeviationToValue($sex, $age, $d))
+#end
+#macro (getValuePercentile $age $v)
+  #set ($p = $services.measurements.get($chartConfiguration.measurementType).valueToPercentile($sex, $age, $v))
+#end
+#macro (getValueSD $age $v)
+  #set ($d = $services.measurements.get($chartConfiguration.measurementType).valueToStandardDeviation($sex, $age, $v))
+#end
+#macro (getPercentileColor $p)
+  #set ($macro.h = $mathtool.mul(110, $mathtool.pow($mathtool.div($mathtool.sub(50, $mathtool.abs($mathtool.sub($p, 50))), 50.0), 0.5)))
+  #set ($macro.s = 1)
+  #set ($macro.l = 0.5)
+  #set ($macro.r = $macro.l)
+  #set ($macro.g = $macro.l)
+  #set ($macro.b = $macro.l)
+  #if ($macro.l &lt;= 0.5)
+    #set ($macro.v = ($macro.l * (1.0 + $macro.s)))
+  #else
+    #set ($macro.v = ($macro.l + $macro.s - $macro.l * $macro.s))
+  #end
+  #if ($macro.v &gt; 0)
+    #set ($macro.m = $macro.l + $macro.l - $macro.v)
+    #set ($macro.sv = ($macro.v - $macro.m) / $macro.v)
+    #set ($macro.h = $macro.h / 60.0)
+    #set ($macro.sextant = $mathtool.floor($macro.h))
+    #set ($macro.fract = $macro.h - $macro.sextant)
+    #set ($macro.vsf = $macro.v * $macro.sv * $macro.fract)
+    #set ($macro.mid1 = $macro.m + $macro.vsf)
+    #set ($macro.mid2 = $macro.v - $macro.vsf)
+    #if ($macro.sextant == 0)
+      #set ($macro.r = $macro.v)
+      #set ($macro.g = $macro.mid1)
+      #set ($macro.b = $macro.m)
+    #elseif ($macro.sextant == 1)
+      #set ($macro.r = $macro.mid2)
+      #set ($macro.g = $macro.v)
+      #set ($macro.b = $macro.m)
+    #elseif ($macro.sextant == 2)
+      #set ($macro.r = $macro.m)
+      #set ($macro.g = $macro.v)
+      #set ($macro.b = $macro.mid1)
+    #elseif ($macro.sextant == 3)
+      #set ($macro.r = $macro.m)
+      #set ($macro.g = $macro.mid2)
+      #set ($macro.b = $macro.v)
+    #elseif ($macro.sextant == 4)
+      #set ($macro.r = $macro.mid1)
+      #set ($macro.g = $macro.m)
+      #set ($macro.b = $macro.v)
+    #else
+      #set ($macro.r = $macro.v)
+      #set ($macro.g = $macro.m)
+      #set ($macro.b = $macro.mid2)
+    #end
+  #end
+  #set ($macro.r = $mathtool.toInteger($mathtool.mul($macro.r, 255)))
+  #set ($macro.g = $mathtool.toInteger($mathtool.mul($macro.g, 255)))
+  #set ($macro.b = $mathtool.toInteger($mathtool.mul($macro.b, 255)))
+  #set ($macro.r = $macro.r.toHexString($macro.r))
+  #if ($macro.r.length() == 1)
+    #set ($macro.r = "0$macro.r")
+  #end
+  #set ($macro.g = $macro.g.toHexString($macro.g))
+  #if ($macro.g.length() == 1)
+    #set ($macro.g = "0$macro.g")
+  #end
+  #set ($macro.b = $macro.b.toHexString($macro.b))
+  #if ($macro.b.length() == 1)
+    #set ($macro.b = "0$macro.b")
+  #end
+  ${escapetool.h}${macro.r}${macro.g}${macro.b}##
+#end
+#set ($xlines = $mathtool.toInteger($mathtool.div($mathtool.sub($chartConfiguration.upperAgeLimit, $chartConfiguration.lowerAgeLimit), $chartConfiguration.ageTickStep)))
+#set ($ylines = $mathtool.toInteger($mathtool.div($mathtool.sub($chartConfiguration.upperValueLimit, $chartConfiguration.lowerValueLimit), $chartConfiguration.valueTickStep)))
+#set ($graphWidth = 828)
+#set ($graphHeight = 1080)
+#set ($chartWidth = $mathtool.add($graphWidth, 125))
+#set ($chartHeight = $mathtool.add($graphHeight, 146))
+#set ($xstep = $mathtool.div($graphWidth, $xlines))
+#set ($ystep = $mathtool.div($graphHeight, $ylines))
+#set ($yscale = $mathtool.div($ystep, $chartConfiguration.valueTickStep))
+#set ($xscale = $mathtool.div($xstep, $chartConfiguration.ageTickStep))
+#if ($chartConfiguration.ageLabelStep &gt;= 12)
+  #set ($ageInYears = true)
+#else
+  #set ($ageInYears = false)
+#end
+#if (!$chartCounter)
+  #set ($chartCounter = 0)
+#else
+  #set ($chartCounter = $chartCounter + 1)
+#end
+{{html clean="false"}}
+##$response.setContentType('image/svg+xml')
+&lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-60.5 -80.5 $chartWidth $chartHeight" ##
+#if ("$!{request.standalone}" == '1' || $xcontext.action == 'export')
+  width="$chartWidth" height="$chartHeight" ##
+#else
+  width="100%" ##
+#end
+preserveAspectRatio="xMinYMin meet" style="overflow: hidden;" text-rendering="optimizeLegibility"&gt;
+  &lt;title&gt;${chartConfiguration.chartTitle}, #if ($sex)$services.localization.render('phenotips.chartGenerator.chartTitle.male')#{else}$services.localization.render('phenotips.chartGenerator.chartTitle.female')#end&lt;/title&gt;
+  &lt;style type="text/css"&gt;
+a:hover {
+  text-decoration: underline;
+}
+.chart-background {
+  fill: white;
+  stroke: none;
+}
+.chart-border {
+  stroke: #000;
+  stroke-width: 1px;
+  fill: none;
+}
+.chart-grid {
+  stroke: #AAA;
+  stroke-width: 0.5px;
+  fill: none;
+  shape-rendering: geometricPrecision;
+}
+.chart-grid.bold {
+  stroke-width: 1px;
+  stroke: #AAA;
+}
+.chart-percentile-curve, .chart-deviation-curve {
+  stroke: #000;
+  stroke-width: 1px;
+  stroke-linejoin: round;
+  fill: none;
+}
+.chart-deviation, .chart-deviation-curve {
+  display: none;
+}
+.boy .chart-percentile-curve {
+  stroke: #1059A0;
+}
+.girl .chart-percentile-curve {
+  stroke: #C44;
+  stroke: #D05;
+}
+.chart-percentile-curve.bold {
+  stroke-width: 2px;
+}
+.chart-percentile-curve.guideline {
+  stroke: #AAA;
+  stroke-width: 1px;
+  stroke-dasharray: 3px 3px;
+}
+.chart-title {
+  text-anchor: middle;
+  font-size: 28px;
+  font-family: sans-serif;
+}
+.chart-label {
+  text-anchor: middle;
+  font-size: 14px;
+  font-family: monospace;
+}
+.chart-label.left {
+  text-anchor: end;
+}
+.chart-label.right {
+  text-anchor: start;
+}
+.chart-label.bold {
+  font-weight: 900;
+}
+.chart-label.side {
+  font-family: sans-serif;
+  font-size: 20px;
+  text-anchor: middle;
+}
+.reference {
+  font-size: 10px;
+  text-anchor: end;
+}
+.chart-percentile.chart-background {
+  stroke: none;
+  fill: white;
+}
+  &lt;/style&gt;
+  &lt;defs&gt;
+    &lt;clipPath id="border${chartCounter}"&gt;
+      &lt;rect x="0" y="0.5" width="$graphWidth" height="$graphHeight" class="chart-border" /&gt;
+    &lt;/clipPath&gt;
+  &lt;/defs&gt;
+  &lt;rect x="-60" y="-80" width="$mathtool.sub($chartWidth, 1)" height="$mathtool.sub($chartHeight, 1)" class="chart-background" /&gt;
+  &lt;g transform="translate(0, 10)" class="#if ($sex)boy#{else}girl#{end}"&gt;
+  #foreach ($i in [0..$xlines])
+    #set ($age = $mathtool.add($mathtool.mul($i, $chartConfiguration.ageTickStep), $chartConfiguration.lowerAgeLimit))
+    #set ($isMajorLine = $mathtool.abs($mathtool.sub($mathtool.div($age, $chartConfiguration.ageLabelStep), $mathtool.round($mathtool.div($age, $chartConfiguration.ageLabelStep)))) &lt;= 0.0001)
+    #set ($x = $mathtool.mul($i, $xstep))
+    &lt;line x1="$x" y1="0" x2="$x" y2="$graphHeight" class="chart-grid#if ($isMajorLine) bold#end" /&gt;
+    #if ($age == 0)
+      &lt;text x="$x" y="$mathtool.add($graphHeight, 5)" class="bottom chart-label bold" dy="1ex"&gt;$services.localization.render('phenotips.chartGenerator.birth')&lt;/text&gt;
+      &lt;text x="$x" y="-4" class="top chart-label bold"&gt;$services.localization.render('phenotips.chartGenerator.birth')&lt;/text&gt;
+    #elseif ($isMajorLine)
+      #if ($ageInYears)
+        #set ($age = $age / 12)
+      #end
+      &lt;text x="$x" y="$mathtool.add($graphHeight, 5)" class="bottom chart-label#if (!$ageInYears &amp;&amp; $age % 12 == 0) bold#end" dy="1ex"&gt;$age&lt;/text&gt;
+      &lt;text x="$x" y="-4" class="top chart-label#if (!$ageInYears &amp;&amp; $age % 12 == 0) bold#end"&gt;$age&lt;/text&gt;
+    #end
+  #end
+  #if (($chart.startsWith('height') || $chart.startsWith('bmi')) &amp;&amp; $chartConfiguration.lowerAgeLimit &lt; 24 &amp;&amp; $chartConfiguration.upperAgeLimit &gt; 24)
+    #set ($x = $mathtool.mul(24, $xstep))
+    &lt;line x1="$x" y1="0" x2="$x" y2="$graphHeight" class="chart-border" /&gt;
+  #end
+  #foreach ($i in [0..$ylines])
+    #set ($value = $mathtool.roundTo(1, $mathtool.add($mathtool.mul($i, $chartConfiguration.valueTickStep), $chartConfiguration.lowerValueLimit)))
+    #set ($isMajorLine = $mathtool.abs($mathtool.sub($mathtool.div($value, $chartConfiguration.valueLabelStep), $mathtool.round($mathtool.div($value, $chartConfiguration.valueLabelStep)))) &lt;= 0.0001)
+    #set ($y = $mathtool.sub($graphHeight, $mathtool.mul($i, $ystep)))
+    &lt;line x1="0" y1="$y" x2="$graphWidth" y2="$y" class="chart-grid#if ($isMajorLine) bold#end" /&gt;
+    #if ($isMajorLine)
+      #if ($mathtool.floor($chartConfiguration.valueLabelStep) == $chartConfiguration.valueLabelStep)
+        #set ($value = $mathtool.toInteger($value))
+      #end
+      &lt;text x="-4" y="$y" class="left chart-label" dy="0.5ex"&gt;$value&lt;/text&gt;
+      &lt;text x="$mathtool.add($graphWidth, 4)" y="$y" class="right chart-label" dy="0.5ex"&gt;$value&lt;/text&gt;
+    #end
+  #end
+  #foreach ($p in [3, 10, 25, 50, 75, 90, 97])
+    #getPercentileValue($chartConfiguration.lowerAgeLimit $p)
+    &lt;path clip-path="url(#border${chartCounter})" class="chart-percentile-curve#if ($p == 3 || $p == 50 || $p == 97) bold#end" d="M0 $mathtool.sub($graphHeight, $mathtool.mul($mathtool.sub($v, $chartConfiguration.lowerValueLimit), $yscale))L##
+    #foreach ($i in [1..$xlines])
+      #set ($age = $mathtool.add($mathtool.mul($i, $chartConfiguration.ageTickStep), $chartConfiguration.lowerAgeLimit))
+      #getPercentileValue($age $p)
+      $mathtool.mul($foreach.count, $xstep) $mathtool.sub($graphHeight, $mathtool.mul($mathtool.sub($v, $chartConfiguration.lowerValueLimit), $yscale)) ##
+      #if ($age == 23 &amp;&amp; ($chartConfiguration.measurementType == 'height' || $chartConfiguration.measurementType == 'bmi') &amp;&amp; $chartConfiguration.lowerAgeLimit &lt; 24 &amp;&amp; $chartConfiguration.upperAgeLimit &gt; 24)
+        #set ($v2 = $v)
+        #getPercentileValue($mathtool.sub($age, 1) $p)
+        #set ($v1 = $v)
+        #set ($d = ($v2 - $v1) / 2)
+        #set ($v3 = $v2 + $d)
+        $mathtool.mul($mathtool.add(1, $foreach.count), $xstep) $mathtool.sub($graphHeight, $mathtool.mul($mathtool.sub($v3, $chartConfiguration.lowerValueLimit), $yscale)) ##
+        #getPercentileValue($mathtool.add($age, 2) $p)
+        #set ($v3 = $v)
+        #getPercentileValue($mathtool.add($age, 1) $p)
+        #set ($v2 = $v)
+        #set ($d = ($v3 - $v2) / 2)
+        #set ($v1 = $v2 - $d)
+        M $mathtool.mul($mathtool.add(1, $foreach.count), $xstep) $mathtool.sub($graphHeight, $mathtool.mul($mathtool.sub($v1, $chartConfiguration.lowerValueLimit), $yscale)) L##
+      #end
+    #end
+    "/&gt;
+  #end
+  #foreach ($d in [-3..3])
+    #getSDValue($chartConfiguration.lowerAgeLimit $d)
+    &lt;path clip-path="url(#border${chartCounter})" class="chart-deviation-curve#if ($d == -2 || $d == 2) bold#end" d="M0 $mathtool.sub($graphHeight, $mathtool.mul($mathtool.sub($v, $chartConfiguration.lowerValueLimit), $yscale))L##
+    #foreach ($i in [1..$xlines])
+      #set ($age = $mathtool.add($mathtool.mul($i, $chartConfiguration.ageTickStep), $chartConfiguration.lowerAgeLimit))
+      #getSDValue($age $d)
+      $mathtool.mul($foreach.count, $xstep) $mathtool.sub($graphHeight, $mathtool.mul($mathtool.sub($v, $chartConfiguration.lowerValueLimit), $yscale)) ##
+      #if ($age == 23 &amp;&amp; ($chartConfiguration.measurementType == 'height' || $chartConfiguration.measurementType == 'bmi') &amp;&amp; $chartConfiguration.lowerAgeLimit &lt; 24 &amp;&amp; $chartConfiguration.upperAgeLimit &gt; 24)
+        #set ($v2 = $v)
+        #getSDValue($mathtool.sub($age, 1) $d)
+        #set ($v1 = $v)
+        #set ($m = ($v2 - $v1) / 2)
+        #set ($v3 = $v2 + $m)
+        $mathtool.mul($mathtool.add(1, $foreach.count), $xstep) $mathtool.sub($graphHeight, $mathtool.mul($mathtool.sub($v3, $chartConfiguration.lowerValueLimit), $yscale)) ##
+        #getSDValue($mathtool.add($age, 2) $d)
+        #set ($v3 = $v)
+        #getSDValue($mathtool.add($age, 1) $d)
+        #set ($v2 = $v)
+        #set ($m = ($v3 - $v2) / 2)
+        #set ($v1 = $v2 - $m)
+        M $mathtool.mul($mathtool.add(1, $foreach.count), $xstep) $mathtool.sub($graphHeight, $mathtool.mul($mathtool.sub($v1, $chartConfiguration.lowerValueLimit), $yscale)) L##
+      #end
+    #end
+    "/&gt;
+  #end
+&lt;g clip-path="url(#border${chartCounter})"&gt;
+  #foreach ($m in $measurements)
+    #if ($m.a &gt;= $chartConfiguration.lowerAgeLimit)
+      #getValuePercentile($m.a $m.x)
+      #getPercentileValue($chartConfiguration.lowerAgeLimit $p)
+      &lt;path class="chart-percentile-curve guideline" d="M0 $mathtool.sub($graphHeight, $mathtool.mul($mathtool.sub($v, $chartConfiguration.lowerValueLimit), $yscale))L##
+      #foreach ($i in [1..$xlines])
+        #set ($age = $mathtool.add($mathtool.mul($i, $chartConfiguration.ageTickStep), $chartConfiguration.lowerAgeLimit))
+        #getPercentileValue($age $p)
+        $mathtool.mul($foreach.count, $xstep) $mathtool.sub($graphHeight, $mathtool.mul($mathtool.sub($v, $chartConfiguration.lowerValueLimit), $yscale)) ##
+        #if ($age == 23 &amp;&amp; ($chartConfiguration.measurementType == 'height' || $chartConfiguration.measurementType == 'bmi') &amp;&amp; $chartConfiguration.lowerAgeLimit &lt; 24 &amp;&amp; $chartConfiguration.upperAgeLimit &gt; 24)
+          #set ($v2 = $v)
+          #getPercentileValue($mathtool.sub($age, 1) $p)
+          #set ($v1 = $v)
+          #set ($d = ($v2 - $v1) / 2)
+          #set ($v3 = $v2 + $d)
+          $mathtool.mul($mathtool.add(1, $foreach.count), $xstep) $mathtool.sub($graphHeight, $mathtool.mul($mathtool.sub($v3, $chartConfiguration.lowerValueLimit), $yscale)) ##
+          #getPercentileValue($mathtool.add($age, 2) $p)
+          #set ($v3 = $v)
+          #getPercentileValue($mathtool.add($age, 1) $p)
+          #set ($v2 = $v)
+          #set ($d = ($v3 - $v2) / 2)
+          #set ($v1 = $v2 - $d)
+          M $mathtool.mul($mathtool.add(1, $foreach.count), $xstep) $mathtool.sub($graphHeight, $mathtool.mul($mathtool.sub($v1, $chartConfiguration.lowerValueLimit), $yscale)) L##
+        #end
+      #end
+      "/&gt;
+    #end
+  #end
+  #foreach ($p in [3, 10, 25, 50, 75, 90, 97])
+    #getPercentileValue($mathtool.sub($chartConfiguration.upperAgeLimit, 1) $p)
+    &lt;circle cx="$mathtool.mul($mathtool.sub($xlines, 0.5), $xstep)" cy="$mathtool.sub($graphHeight, $mathtool.mul($mathtool.sub($v, $chartConfiguration.lowerValueLimit), $yscale))" r="#if ($p == 3)0.5#{else}0.7#{end}em" class="chart-percentile chart-background"/&gt;
+    &lt;text x="$mathtool.mul($mathtool.sub($xlines, 0.5), $xstep)" y="$mathtool.sub($graphHeight, $mathtool.mul($mathtool.sub($v, $chartConfiguration.lowerValueLimit), $yscale))" class="chart-percentile chart-label" dy="0.5ex"&gt;$p&lt;/text&gt;
+  #end
+  #foreach ($d in [-3..3])
+    #getSDValue($mathtool.sub($chartConfiguration.upperAgeLimit, 1) $d)
+    &lt;ellipse cx="$mathtool.mul($mathtool.sub($xlines, 0.85), $xstep)" cy="$mathtool.sub($graphHeight, $mathtool.mul($mathtool.sub($v, $chartConfiguration.lowerValueLimit), $yscale))" ry="0.7em" rx="1.2em" class="chart-deviation chart-background"/&gt;
+    &lt;text x="$mathtool.mul($mathtool.sub($xlines, 0.85), $xstep)" y="$mathtool.sub($graphHeight, $mathtool.mul($mathtool.sub($v, $chartConfiguration.lowerValueLimit), $yscale))" class="chart-deviation chart-label" dy="0.5ex"&gt;#if ($d &gt;= 0)+#end${d}SD&lt;/text&gt;
+  #end
+  #foreach ($m in $measurements)
+    #if ($m.a &gt;= $chartConfiguration.lowerAgeLimit &amp;&amp; $m.x)
+      #getValuePercentile($m.a $m.x)
+      #getValueSD($m.a $m.x)
+      #set ($d = $mathtool.roundTo(2, $d))
+      #set ($x = $mathtool.mul($mathtool.sub($mathtool.min($m.a, $chartConfiguration.upperAgeLimit), $chartConfiguration.lowerAgeLimit), $xscale))
+      #set ($y = $mathtool.sub($graphHeight, $mathtool.mul($mathtool.sub($m.x, $chartConfiguration.lowerValueLimit), $yscale)))
+      #if ($m.a &gt;= $chartConfiguration.upperAgeLimit)
+        ## Age over the chart limit
+        #if ($y &gt; $mathtool.sub($graphHeight, 10))
+          ## Age over the chart limit + Measurement under chart limit -&gt; arrow in the lower right corner
+          #set ($y = $graphHeight - 2)
+          &lt;path d="M $mathtool.sub($x, 2) $y l -14.85 -4.95 l 9.9 -9.9 z" fill="#getPercentileColor($p)" stroke="black" stroke-width="4" title="$mathtool.roundTo(2, $m.x), $p pctl (#if ($d &gt;= 0)+#end${d}SD)"/&gt;
+        #elseif ($y &lt; 10)
+          ## Age over the chart limit + Measurement above chart limit -&gt; arrow in the upper right corner
+          #set ($y = 2)
+          &lt;path d="M $mathtool.sub($x, 2) $y l -14.85 4.95 l 9.9 9.9 z" fill="#getPercentileColor($p)" stroke="black" stroke-width="4" title="$mathtool.roundTo(2, $m.x), $p pctl (#if ($d &gt;= 0)+#end${d}SD)"/&gt;
+        #else
+          ## Age over the chart limit + Measurement in range -&gt; arrow on the right side
+          &lt;path d="M $mathtool.sub($x, 2) $y l -14 7 v -14 z" fill="#getPercentileColor($p)" stroke="black" stroke-width="4" title="$mathtool.roundTo(2, $m.x), $p pctl (#if ($d &gt;= 0)+#end${d}SD)"/&gt;
+        #end
+      #elseif ($y &gt; $mathtool.sub($graphHeight, 10))
+        ## Age in range + Measurement under chart limit -&gt; arrow on the bottom side
+        #set ($y = $graphHeight - 4)
+        &lt;path d="M $x $y l 7 -14 h -14 z" fill="#getPercentileColor($p)" stroke="black" stroke-width="4" title="$mathtool.roundTo(2, $m.x), $p pctl (#if ($d &gt;= 0)+#end${d}SD)"/&gt;
+      #elseif ($y &lt; 10)
+        ## Age in range + Measurement above chart limit -&gt; arrow on the top side
+        #set ($y = 4)
+        &lt;path d="M $x $y l 7 14 h -14 z" fill="#getPercentileColor($p)" stroke="black" stroke-width="4" title="$mathtool.roundTo(2, $m.x), $p pctl (#if ($d &gt;= 0)+#end${d}SD)"/&gt;
+      #else
+        ## Age in range + Measurement in range -&gt; circle in the correct position on the chart
+        &lt;circle cx="$x" cy="$y" fill="#getPercentileColor($p)" stroke="black" stroke-width="4" r="8" title="$mathtool.roundTo(2, $m.x), $p pctl (#if ($d &gt;= 0)+#end${d}SD)"/&gt;
+      #end
+    #end
+  #end
+  &lt;/g&gt;
+  &lt;rect x="0" y="0" width="$graphWidth" height="$graphHeight" class="chart-border" /&gt;
+  &lt;text x="$mathtool.div($graphWidth, 2)" y="-55" class="chart-title"&gt;${chartConfiguration.chartTitle}, #if ($sex)$services.localization.render('phenotips.chartGenerator.chartTitle.male')#{else}$services.localization.render('phenotips.chartGenerator.chartTitle.female')#end&lt;/text&gt;
+  &lt;text y="$mathtool.div($graphHeight, 2)" x="-33" class="left side chart-label" transform="rotate(270 -33 $mathtool.div($graphHeight, 2))"&gt;${chartConfiguration.leftLabel}&lt;/text&gt;
+  &lt;text y="$mathtool.div($graphHeight, 2)" x="$mathtool.add($graphWidth, 33)" class="right side chart-label" transform="rotate(90 $mathtool.add($graphWidth, 33) $mathtool.div($graphHeight, 2))"&gt;${chartConfiguration.rightLabel}&lt;/text&gt;
+  &lt;text y="-20" x="$mathtool.div($graphWidth, 2)" class="top side chart-label"&gt;${chartConfiguration.topLabel}&lt;/text&gt;
+  &lt;text y="$mathtool.add($graphHeight, 20)" x="$mathtool.div($graphWidth, 2)" class="bottom side chart-label" dy="0.7em"&gt;${chartConfiguration.bottomLabel}&lt;/text&gt;
+  #if ("$!chartConfiguration.chartSource" != '')
+    #if ("$!chartConfiguration.chartSourceLink" != '')&lt;a xlink:href="${chartConfiguration.chartSourceLink}"&gt;#end
+    &lt;text y="$mathtool.add($graphHeight, 45)" x="$mathtool.add($chartWidth, -65.5)" class="reference" dy="0.7em"&gt;${chartConfiguration.chartSource}&lt;/text&gt;
+    #if ("$!chartConfiguration.chartSourceLink" != '')&lt;/a&gt;#end
+  #end
+  &lt;/g&gt;
+&lt;/svg&gt;
+{{/html}}</content>
+</xwikidoc>

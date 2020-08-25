@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/
+-->
+
+<xwikidoc version="1.1">
+  <web>PhenoTips</web>
+  <name>DBConfigurationClass</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <creationDate>1401822126000</creationDate>
+  <parent>XWiki.XWikiClasses</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1401822126000</date>
+  <contentUpdateDate>1401822126000</contentUpdateDate>
+  <version>1.1</version>
+  <title/>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>true</hidden>
+  <content/>
+  <class>
+    <name>PhenoTips.DBConfigurationClass</name>
+    <customClass/>
+    <customMapping/>
+    <defaultViewSheet/>
+    <defaultEditSheet/>
+    <defaultWeb/>
+    <nameField/>
+    <validationScript/>
+    <dateOfBirthFormat>
+      <customDisplay>{{velocity}}
+#if ($xcontext.action == 'edit' || $xcontext.action == 'admin')
+{{html wiki=false clean=false}}
+&lt;select name="$prefix$name" id="$prefix$name"&gt;
+#foreach ($val in ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy-MM-dd', 'MM/yyyy', 'MMMM yyyy', 'yyyy'])
+  &lt;option #if ($val == $value) selected="selected"#end value="$val"&gt;$val $services.localization.render('phenotips.DBConfigurationClass.dateExample',[$xwiki.formatDate($util.date, $val)])&lt;/option&gt;
+#end
+&lt;/select&gt;
+{{/html}}
+#else
+$!value
+#end
+{{/velocity}}</customDisplay>
+      <disabled>0</disabled>
+      <name>dateOfBirthFormat</name>
+      <number>2</number>
+      <picker>0</picker>
+      <prettyName>Date of birth format</prettyName>
+      <size>30</size>
+      <unmodifiable>0</unmodifiable>
+      <validationMessage/>
+      <validationRegExp/>
+      <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+    </dateOfBirthFormat>
+    <enableImperialUnitSystem>
+      <customDisplay/>
+      <defaultValue/>
+      <disabled>0</disabled>
+      <displayFormType>checkbox</displayFormType>
+      <displayType/>
+      <name>enableImperialUnitSystem</name>
+      <number>3</number>
+      <prettyName>Enable imperial unit system for entering measurements</prettyName>
+      <unmodifiable>0</unmodifiable>
+      <validationMessage/>
+      <validationRegExp/>
+      <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+    </enableImperialUnitSystem>
+    <livetableColumns>
+      <cache>0</cache>
+      <customDisplay>**{{translation key="phenotips.DBConfigurationClass.metaInfo" /}}**
+
+{{velocity output=false}}
+$xwiki.ssx.use('PhenoTips.DBConfigurationClass')##
+#set ($docFields = ['doc.name', 'doc.creator', 'doc.author', 'doc.creationDate', 'doc.date'])
+#if (!$xwiki.getDocument('PhenoTips.OwnerClass').isNew())
+  #set ($discard = $docFields.add('owner/PhenoTips.OwnerClass'))
+#end
+#if (!$xwiki.getDocument('PhenoTips.CollaboratorClass').isNew())
+  #set ($discard = $docFields.add('collaborator/PhenoTips.CollaboratorClass'))
+#end
+#if (!$xwiki.getDocument('PhenoTips.VisibilityClass').isNew())
+  #set ($discard = $docFields.add('visibility/PhenoTips.VisibilityClass'))
+#end
+#macro(__xclass__displayLivetableColOption $option $value)
+  &lt;li&gt;
+    &lt;label&gt;
+    &lt;input type="checkbox" name="${prefix}${name}" id="${prefix}${name}_${option}" value="$option"#if ($value.contains($option)) checked="checked"#end/&gt;
+    $services.localization.render("patient.livetable.${option.replaceAll('\/.*', '')}")
+    &lt;/label&gt;
+  &lt;/li&gt;
+#end
+{{/velocity}}
+
+{{velocity}}{{html wiki=false clean=false}}
+&lt;ul class="custom-display-list"&gt;
+#foreach ($option in $docFields)
+  #__xclass__displayLivetableColOption($option $value)
+#end
+&lt;/ul&gt;
+{{/html}}{{/velocity}}
+
+{{include reference="PhenoTips.DBConfigurationClassDisplayer" /}}</customDisplay>
+      <disabled>0</disabled>
+      <displayType>input</displayType>
+      <multiSelect>1</multiSelect>
+      <name>livetableColumns</name>
+      <number>5</number>
+      <picker>0</picker>
+      <prettyName>Livetable columns</prettyName>
+      <relationalStorage>1</relationalStorage>
+      <separator> </separator>
+      <separators> ,|</separators>
+      <size>40</size>
+      <sort>none</sort>
+      <unmodifiable>0</unmodifiable>
+      <validationMessage/>
+      <validationRegExp/>
+      <values/>
+      <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+    </livetableColumns>
+    <livetableRows>
+      <customDisplay/>
+      <disabled>0</disabled>
+      <name>livetableRows</name>
+      <number>8</number>
+      <numberType>integer</numberType>
+      <prettyName>Number of rows to display by default</prettyName>
+      <size>30</size>
+      <unmodifiable>0</unmodifiable>
+      <validationMessage/>
+      <validationRegExp/>
+      <classType>com.xpn.xwiki.objects.classes.NumberClass</classType>
+    </livetableRows>
+    <livetableSortColumn>
+      <customDisplay>{{velocity}}
+#if ($type == 'edit')
+{{html clean="false"}}
+&lt;select name="${prefix}${name}" id="${prefix}${name}"&gt;
+#foreach($column in $object.getProperty('livetableColumns').value)
+  #set ($fieldClass = $stringtool.substringAfter($column, '/'))
+  #if ($fieldClass == '')
+    #set ($fieldClass = 'PhenoTips.PatientClass')
+  #end
+  &lt;option value="$escapetool.xml($column)"#if ($column == $value) selected="selected"#{end}&gt;#if ($services.localization.get("patient.livetable.${stringtool.substringBefore($column, '/')}"))$services.localization.render("patient.livetable.${stringtool.substringBefore($column, '/')}")#else$xwiki.getClass($fieldClass).get($stringtool.substringBefore($column, '/')).translatedPrettyName#end&lt;/option&gt;
+#end
+&lt;/select&gt;
+{{/html}}
+#else
+  $services.localization.render("patient.livetable.${value}")
+#end
+{{/velocity}}</customDisplay>
+      <disabled>0</disabled>
+      <name>livetableSortColumn</name>
+      <number>7</number>
+      <picker>0</picker>
+      <prettyName>Column to sort by default</prettyName>
+      <size>30</size>
+      <unmodifiable>0</unmodifiable>
+      <validationMessage/>
+      <validationRegExp/>
+      <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+    </livetableSortColumn>
+    <measurementUnitSystem>
+      <cache>0</cache>
+      <customDisplay>{{velocity}}
+#if ($value != 'imperial')#set ($value = 'metric')#end
+{{html clean=false}}&lt;p&gt;&lt;label&gt;&lt;input type="radio" name="${prefix}${name}" id="${prefix}${name}_metric" value="metric" #if ($value == 'metric') checked="checked"#end /&gt;$services.localization.render('PhenoTips.DBConfigurationClass_measurementUnitSystem_metric')&lt;/label&gt;  &lt;label&gt;&lt;input type="radio" name="${prefix}${name}" id="${prefix}${name}_imperial" value="imperial" #if ($value == 'imperial') checked="checked"#end /&gt;$services.localization.render('PhenoTips.DBConfigurationClass_measurementUnitSystem_imperial')&lt;/label&gt;&lt;/p&gt;
+&lt;br/&gt;
+{{/velocity}}</customDisplay>
+      <disabled>0</disabled>
+      <displayType>radio</displayType>
+      <multiSelect>0</multiSelect>
+      <name>measurementUnitSystem</name>
+      <number>4</number>
+      <picker>0</picker>
+      <prettyName>Default unit system for entering measurements, when "Imperial unit system" is enabled</prettyName>
+      <relationalStorage>0</relationalStorage>
+      <separator> </separator>
+      <separators> ,|</separators>
+      <size>1</size>
+      <sort>none</sort>
+      <unmodifiable>0</unmodifiable>
+      <validationMessage/>
+      <validationRegExp/>
+      <values>metric=Metric|imperial=Imperial</values>
+      <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+    </measurementUnitSystem>
+    <phenotypeMapping>
+      <cache>0</cache>
+      <classname>PhenoTips.PhenotypeMappingClass</classname>
+      <customDisplay>{{velocity}}
+{{html clean="false"}}
+#foreach ($option in $field.getMapValues().keySet())
+  &lt;label class="xwiki-form-listclass" for="xwiki-form-${escapetool.xml("${prefix}${name}")}-${foreach.index}"&gt;&lt;input type="radio" name="${prefix}${name}" id="xwiki-form-${escapetool.xml("${prefix}${name}")}-${foreach.index}" value="${escapetool.xml($option)}"#if ($value == $option) checked="checked"#end/&gt; $escapetool.xml($xwiki.getDocument($option).plainTitle)&lt;/label&gt;
+#end
+{{/html}}
+{{/velocity}}</customDisplay>
+      <disabled>0</disabled>
+      <displayType>radio</displayType>
+      <idField>doc.fullName</idField>
+      <multiSelect>0</multiSelect>
+      <name>phenotypeMapping</name>
+      <number>1</number>
+      <picker>0</picker>
+      <prettyName>Phenotype configuration document</prettyName>
+      <relationalStorage>0</relationalStorage>
+      <separator> </separator>
+      <separators/>
+      <size>30</size>
+      <sort>none</sort>
+      <sql>select distinct doc.fullName, doc.name from XWikiDocument doc, BaseObject obj where doc.fullName &lt;&gt; 'PhenoTips.PhenotypeMappingTemplate' and obj.name = doc.fullName and obj.className = 'PhenoTips.PhenotypeMappingClass'</sql>
+      <unmodifiable>0</unmodifiable>
+      <validationMessage/>
+      <validationRegExp/>
+      <valueField>doc.name</valueField>
+      <classType>com.xpn.xwiki.objects.classes.DBListClass</classType>
+    </phenotypeMapping>
+  </class>
+  <object>
+    <name>PhenoTips.DBConfigurationClass</name>
+    <number>0</number>
+    <className>XWiki.StyleSheetExtension</className>
+    <guid>b91750d7-c185-4e69-9f6d-53ab896b1778</guid>
+    <class>
+      <name>XWiki.StyleSheetExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <contentType>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>contentType</name>
+        <number>6</number>
+        <prettyName>Content Type</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>CSS|LESS</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </contentType>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>#template('colorThemeInit.vm')
+ul.custom-display-list {
+  list-style-type: none;
+  margin: 1em 0 1em 1em;
+}
+ul.col-2 {
+  -moz-column-count: 2;
+  -webkit-column-count: 2;
+  column-count: 2;
+}
+ul.custom-display-list li:hover {
+  background-color: $theme.highlightColor;
+}
+ul.custom-display-list li .move {
+  background: url($xwiki.getSkinFile('icons/datamodel/move.png')) no-repeat center center transparent;
+  cursor: move;
+  display: inline-block;
+  float: right;
+  height: 16px;
+  text-indent: -9999px;
+  vertical-align: baseline;
+  width: 16px;
+}</code>
+    </property>
+    <property>
+      <name/>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>onDemand</use>
+    </property>
+  </object>
+</xwikidoc>

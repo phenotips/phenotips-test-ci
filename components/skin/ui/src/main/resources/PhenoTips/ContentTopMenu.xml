@@ -1,0 +1,956 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/
+-->
+
+<xwikidoc version="1.1">
+  <web>PhenoTips</web>
+  <name>ContentTopMenu</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <creationDate>1401822198000</creationDate>
+  <parent>PhenoTips.PatientSheet</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1401822198000</date>
+  <contentUpdateDate>1401822198000</contentUpdateDate>
+  <version>1.1</version>
+  <title>Patient sheet top menu</title>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>true</hidden>
+  <content/>
+  <object>
+    <name>PhenoTips.ContentTopMenu</name>
+    <number>0</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>e5d4f60d-d537-495d-bef2-c7e7894fb3f4</guid>
+    <class>
+      <name>XWiki.JavaScriptExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>document.observe('xwiki:dom:loaded', function() {
+  var tocLinkClicked = function(event) {
+    //event.stop();
+    var trigger = event.findElement('a');
+    var targetName = trigger &amp;&amp; trigger.getAttribute('href');
+    var target = targetName &amp;&amp; $(targetName.substring(1));
+    var parent = target &amp;&amp; (target.up('.collapsible-group') || target.up('.chapter'));
+    if (parent &amp;&amp; parent.hasClassName('collapsed')) {
+       parent.removeClassName('collapsed');
+       if (parent.down('.expand-tool')) {
+         parent.down('.expand-tool').update('▼');
+       }
+       if (parent.up('.chapter')) {
+         parent.up('.chapter').removeClassName('collapsed');
+       }
+       //parent.scrollTo();
+    } else {
+       //target.scrollTo();
+    }
+  };
+
+  var tocElement = $('table-of-contents')
+  var tocMenuEntry = $('toc-entry');
+  if (!tocElement || !tocMenuEntry || !tocElement.down('ul')) {
+    tocMenuEntry &amp;&amp; tocMenuEntry.up('li').remove();
+    return;
+  }
+  tocMenuEntry = tocMenuEntry.up('li');
+  tocMenuEntry.down('ul').replace(tocElement.down('ul'));
+
+  tocMenuEntry.down('ul').select('a').invoke('observe', 'click', tocLinkClicked);
+});</code>
+    </property>
+    <property>
+      <name>Fix ToC</name>
+    </property>
+    <property>
+      <parse>0</parse>
+    </property>
+    <property>
+      <use>onDemand</use>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.ContentTopMenu</name>
+    <number>1</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>13a3388b-e108-4903-9b1a-2ef792c5c472</guid>
+    <class>
+      <name>XWiki.JavaScriptExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>document.observe('xwiki:dom:loaded', function() {
+  var deleteTool = $('prActionDelete');
+
+  if (!deleteTool) {
+    return false;
+  }
+
+  var familyInterfaceDoc = new XWiki.Document('FamilyPedigreeInterface', 'PhenoTips');
+  var baseUrl = familyInterfaceDoc.getURL('get', 'rand='+ Math.random());
+
+  deleteTool.observe('click', function(clickEvent) {
+    clickEvent.stop();
+    var item = clickEvent.element();
+    item.blur();
+    if (item.disabled) {
+      // Do nothing if the button was already clicked and it's waiting for a response from the server.
+      return;
+    } else {
+      var familyID = $('familyIdentifier') ? $('familyIdentifier').value : undefined;
+      if (familyID) {
+        var fullURL = baseUrl + '&amp;action=familyinfo&amp;document_id=' + familyID;
+        new Ajax.Request(fullURL, {
+          method: "POST",
+          onSuccess: onFamilyDataReadyBeforeDeletion.bind(this)
+        });
+      } else {
+        standardPatientDelete();
+      }
+    }
+  });
+
+  var onFamilyDataReadyBeforeDeletion = function (response) {
+    if (response &amp;&amp; response.responseJSON) {
+
+      var familyMembers = response.responseJSON.family.hasOwnProperty("familyMembers") ? response.responseJSON.family.familyMembers: [];
+      var familyId = response.responseJSON.family.id;
+      var familyExternalId = response.responseJSON.family.externalId;
+
+      if (familyMembers.length &gt; 1) {
+        standardPatientDelete();
+      } else {
+        // check if the user has delete rights to delete family
+        new Ajax.Request(baseUrl, {
+            method: "POST",
+            parameters: {'action': 'candeletefamily', 'family_id' : familyId, 'deleteallmembers' : false},
+            onSuccess: function(response) {
+              if (response &amp;&amp; response.responseJSON) {
+                // remove patient from family OR delete family dialog
+                var familyString = (familyExternalId == "") ? familyId + " " : familyExternalId + " (" + familyId + ") ";
+                var confirmationText = "$services.localization.render('phenotips.patientRecord.deleteWarning')" + "&lt;br&gt;&lt;br&gt;" +
+                                       "$services.localization.render('phenotips.patientRecord.pedigree.deleteFamilyWarning')" + " " + familyString + "." +
+                                       "$services.localization.render('phenotips.patientRecord.pedigree.deleteFamilyWarningQuestion')" + "&lt;br&gt;&lt;br&gt;";
+                var parameters = {"action": "deletefamily", "removemembers": true, "family_id": familyId};
+                standardPatientDelete(confirmationText, familyId);
+              } else {
+                standardPatientDelete();
+              }
+            }
+         });
+      }
+
+    }
+  }
+
+  var standardPatientDelete = function (confirmationText, familyId) {
+    var item = $('prActionDelete');
+    var url = item.readAttribute('href') + "?confirm=1&amp;form_token=" + $$('meta[name=form_token]')[0].content + (Prototype.Browser.Opera ? "" : "&amp;ajax=1");
+    if (confirmationText)
+      var text = confirmationText;
+    else
+      var text = "$services.localization.render('core.recyclebin.confirm')";
+    var confirmationDialog = new XWiki.widgets.ConfirmedAjaxRequest(
+      /* Ajax request URL */
+      url,
+      /* Ajax request parameters */
+      {
+        onCreate : function() {
+          // Disable the button, to avoid a cascade of clicks from impatient users
+          item.disabled = true;
+        },
+        onSuccess : function() {
+          // Go to space WebHome
+          window.location = new XWiki.Document('WebHome', XWiki.Document.currentSpace).getURL('view');
+        },
+        onFailure : function() {
+          // Better luck next time!
+          item.disabled = false;
+        }
+      },
+      /* Interaction parameters */
+      {
+        confirmationText: text
+      }
+    );
+
+    if (confirmationText) {
+      // this is the last patient, add one more button
+      var deleteFamilyButton = new Element('input', {type: 'button', 'value': '$services.localization.render('phenotips.patientRecord.deletePatientAndFamily')', 'class' : 'button delete-family', 'id': 'delete_family'});
+      var deletePatientButton = $$('input:[type=button][title="(Enter)"]')[0];
+      deletePatientButton.addClassName('delete-family');
+      deletePatientButton.value = "$services.localization.render('phenotips.patientRecord.deletePatient')";
+      var cancelButton = $$('input:[type=button][title="(Esc)"]')[0];
+      cancelButton.value = "$services.localization.render('phenotips.patientRecord.deleteWarning.cancelButton')";
+      deletePatientButton.up().insert({'after' : (deleteFamilyButton.wrap('span', {'class' : 'buttonwrapper'}))});
+
+      deleteFamilyButton.observe("click", function(event) {
+          event.stop();
+          confirmationDialog.closeDialog();
+          var parameters = {"action": "deletefamily", "removemembers": true, "family_id": familyId, "form_token": $$('meta[name=form_token]')[0].content};
+          sendDeleteRequest(parameters);
+     });
+    }
+  }
+
+  var sendDeleteRequest = function(parameters) {
+    new Ajax.Request(baseUrl, {
+        method: "POST",
+        parameters: parameters,
+        onSuccess: function(response) {
+            if (response) {
+              // Go to space WebHome
+              window.location = new XWiki.Document('WebHome', XWiki.Document.currentSpace).getURL('view');
+            }
+        }
+    });
+  }
+
+});</code>
+    </property>
+    <property>
+      <name>Confirmed AJAX deletion</name>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>onDemand</use>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.ContentTopMenu</name>
+    <number>2</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>4097e56a-9f34-410b-a188-84a459a3bbea</guid>
+    <class>
+      <name>XWiki.JavaScriptExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>document.observe('xwiki:dom:loaded', function() {
+  // Only do this in edit mode
+  if (XWiki.contextaction != 'edit') { return; }
+  var form = $('edit') || $('inline');
+  if (!form) {return; }
+  var formToken = form.form_token &amp;&amp; form.form_token.value;
+
+  // What the form initially looked like
+  var originalFormData = form.serialize();
+
+  // Warn users when they navigate away from this page without submitting the form, if the data changed
+  /*window.onbeforeunload = function(uEvent) {
+    if (originalFormData != form.serialize()) {
+      return "$services.localization.render('phenotips.contentTopMenu.unsavedDataWarning')";
+    }
+  };
+  form.observe('submit', function(event) {
+     window.onbeforeunload = function() {};
+  });*/
+
+  // Obtain the number of the loaded version
+  var originalVersion = ($$("meta[name=version]").length &gt; 0) ? $$("meta[name=version]")[0].content : false;
+
+  // What could happen on cancel:
+  var __getRollbackURL = function (version) {
+    return XWiki.currentDocument.getURL('rollback', 'rev=' + version + "&amp;confirm=1&amp;form_token=" + formToken);
+  }
+  var deleteURL =  XWiki.currentDocument.getURL('delete', "confirm=1&amp;form_token=" + formToken);
+  var NEW_DOCUMENT = 'none';
+
+  if (originalVersion) {
+     var cancelURL = __getRollbackURL(originalVersion);
+  }
+
+  var versionProviderURL = XWiki.currentDocument.getRestURL();
+  var __getDocumentVersionFromREST = function(xml) {
+    var version = xml.getElementsByTagName('version');
+    if (version.length &gt; 0) {
+       return version[0].firstChild.nodeValue;
+    }
+    return false;
+  };
+
+  // In background, check if the document actually exists; if not, it should be deleted on cancel
+  // (non-existing documents have 1.1 in their meta version)
+  new Ajax.Request(
+            versionProviderURL, {
+              method: 'get',
+              onSuccess : function (response) {
+                // only update if the information was unavailable in the meta section
+                if (!originalVersion &amp;&amp; (originalVersion = __getDocumentVersionFromREST(response.responseXML))) {
+                   cancelURL = __getRollbackURL(originalVersion);
+                }
+              },
+              onFailure : function (response) {
+                if (response.statusCode == 404) {
+                   //Document missing
+                   originalVersion = NEW_DOCUMENT;
+                   cancelURL = deleteURL;
+                }
+              }.bind(this)
+            }
+      );
+
+  //form.select('input[name=action_cancel]').invoke('stopOserving', 'click');
+  form.select('input[name=action_cancel]').invoke('observe', 'click', function (event) {
+    // Continue with the default behavior if the cancel action is being forced after form version verification
+    // or if at this point we still have no information regarding the original document version
+    if (form._isVersionVerified || !originalVersion || !cancelURL) { return; }
+    Event.stop(event);
+    // Find the current version
+    new Ajax.Request(
+            versionProviderURL,
+            {
+              method: 'get',
+              onCreate : function() {
+                form._isVersionVerified = true;
+              },
+              onSuccess : function(response) {
+                var crtVersion = __getDocumentVersionFromREST(response.responseXML);
+                window.onbeforeunload = function() {};
+                if (crtVersion &amp;&amp; crtVersion != originalVersion) {
+                  // Go to the original state (i.e. rollback or delete)
+                  window.location = cancelURL;
+                } else {
+                  //just cancel
+                  event.element().click();
+                }
+              }.bind(this),
+              onFailure : function (response) {
+                window.onbeforeunload = function() {};
+                // Fail silently
+                event.element().click();
+              }.bind(this),
+              on0 : function (response) {
+                response.request.options.onFailure(response);
+              }
+            }
+      );
+  });
+});</code>
+    </property>
+    <property>
+      <name>Fix uncancellable object changes</name>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>onDemand</use>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.ContentTopMenu</name>
+    <number>3</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>5c370dd1-519a-4cae-a5b2-a555d2199cae</guid>
+    <class>
+      <name>XWiki.JavaScriptExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>(function(){
+  var init = function(event) {
+    var docContent = $('mainContentArea');
+    var docActions = $('patient-record-actions');
+    if (docContent &amp;&amp; docActions) {
+      var daSticky  = new StickyBox(docActions, docContent, {offsetTop : 0});
+    }
+  };
+
+  (XWiki.domIsLoaded &amp;&amp; init()) || document.observe("xwiki:dom:loaded", init);
+})();</code>
+    </property>
+    <property>
+      <name>Make the menu in the doc header sticky</name>
+    </property>
+    <property>
+      <parse>0</parse>
+    </property>
+    <property>
+      <use>onDemand</use>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.ContentTopMenu</name>
+    <number>4</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>dd3b46fe-acb2-43ee-bf76-b01d0c3bccae</guid>
+    <class>
+      <name>XWiki.JavaScriptExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>document.observe("xwiki:dom:loaded", function () {
+  var exportLinks = $$(' .export-link');
+  exportLinks.invoke('observe', 'click', function (event) {
+    event.stop();
+    var newWindow = window.open("", "_blank");
+    PhenoTips.widgets.FormUtils.getFormState().saveIfFormDirty(function () {
+      newWindow.location = event.findElement().href;
+    });
+  });
+});</code>
+    </property>
+    <property>
+      <name>Save before exporting in edit mode</name>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>currentPage</use>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.ContentTopMenu</name>
+    <number>0</number>
+    <className>XWiki.UIExtensionClass</className>
+    <guid>9449621f-d20d-42a1-bc70-18096cd6be2a</guid>
+    <class>
+      <name>XWiki.UIExtensionClass</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <content>
+        <disabled>0</disabled>
+        <name>content</name>
+        <number>3</number>
+        <prettyName>Extension Content</prettyName>
+        <rows>10</rows>
+        <size>40</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </content>
+      <extensionPointId>
+        <disabled>0</disabled>
+        <name>extensionPointId</name>
+        <number>1</number>
+        <prettyName>Extension Point ID</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </extensionPointId>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>2</number>
+        <prettyName>Extension ID</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parameters>
+        <disabled>0</disabled>
+        <name>parameters</name>
+        <number>4</number>
+        <prettyName>Extension Parameters</prettyName>
+        <rows>10</rows>
+        <size>40</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </parameters>
+      <scope>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>scope</name>
+        <number>5</number>
+        <prettyName>Extension Scope</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>wiki=Current Wiki|user=Current User|global=Global</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </scope>
+    </class>
+    <property>
+      <content>{{velocity}}
+#macro (__icon $name){{html clean="false"}}&lt;span class="fa fa-fw fa-${name}"&gt; &lt;/span&gt;{{/html}}#end
+##
+#if ($doc.getObject('PhenoTips.PatientClass'))
+$xwiki.jsx.use('PhenoTips.ContentTopMenu')##
+(% id="patient-record-actions" class="content-actions page-actions" %)(((
+(% id="pr-more-actions-menu" class="menu menu-horizontal" %)(((
+#if ($xcontext.action == 'view')
+#if($hasEdit &amp;&amp; !$isReadOnly)
+  #set($editaction = $doc.getDefaultEditMode())
+* [[#__icon("pencil")$services.localization.render('core.menu.edit')&gt;&gt;path:$doc.getURL($editaction, $!languageparams)|| id="prActionEdit"]]
+#end## HAS EDIT
+#else## NOT IN VIEW MODE, SHOW EDIT MODE ACTIONS
+* (% class="xDropdown" %){{html clean="false"}}&lt;span class="fa fa-fw fa-check"&gt; &lt;/span&gt;&lt;label&gt;&lt;input type="submit" value="$services.localization.render('phenotips.contentTopMenu.save')" name="action_saveandcontinue"/&gt;&lt;/label&gt;{{/html}}
+** {{html clean="false"}}&lt;label&gt;&lt;input id="tmActionSave" type="submit" value="$services.localization.render('saveandcontinue')" title="$services.localization.render('saveandcontinue')" name="action_saveandcontinue"/&gt;&lt;/label&gt;{{/html}}
+** {{html clean="false"}}&lt;label&gt;&lt;input id="tmActionSaveAndContinue" type="submit" value="$services.localization.render('saveandview')" title="$services.localization.render('saveandview')" name="action_save"/&gt;&lt;/label&gt;{{/html}}
+* {{html clean="false"}}&lt;span class="fa fa-fw fa-ban"&gt; &lt;/span&gt;&lt;label&gt;&lt;input id="tmActionCancel" type="submit" value="$services.localization.render('phenotips.contentTopMenu.cancel')" title="$services.localization.render('phenotips.contentTopMenu.cancel.title')" name="action_cancel"/&gt;&lt;/label&gt;{{/html}}
+#end## DONE WITH EDIT MODE SPECIFIC ACTIONS
+#set ($canDelete = !$doc.isNew() &amp;&amp; $xwiki.hasAccessLevel('delete'))
+#if ($canDelete)
+* [[#__icon("times")$services.localization.render('core.menu.delete')&gt;&gt;path:$doc.getURL('delete', $!languageparams)|| id="prActionDelete"]]
+#end## HAS DELETE
+* (% class="xDropdown" %){{html clean="false"}}&lt;span class="fa fa-fw fa-list"&gt; &lt;/span&gt;&lt;span id="toc-entry"&gt;$services.localization.render('phenotips.contentTopMenu.jumpMenu')&lt;/span&gt;{{/html}}
+##The ToC will be populated by JS
+** ----
+* (% class="xDropdown" %)#__icon("cog") $services.localization.render('phenotips.contentTopMenu.moreActionsMenu')
+#if ($xcontext.action != 'view' || $viewer != 'content')
+** [[$services.localization.render('phenotips.contentTopMenu.moreActionsMenu.viewMode')&gt;&gt;$doc.fullName|| title="$services.localization.render('phenotips.contentTopMenu.moreActionsMenu.viewMode.title')" target="_blank"]]
+#end
+#if ($isAdvancedUser &amp;&amp; $xcontext.action != 'view' || $viewer != 'history')
+** [[$services.localization.render('phenotips.contentTopMenu.moreActionsMenu.history')&gt;&gt;path:$doc.getURL('view', 'viewer=history')|| target="_blank" title="$services.localization.render('phenotips.contentTopMenu.moreActionsMenu.history.title')"]]
+#end
+#if ($xwiki.getDocument($xwiki.getSpacePreference('colorTheme')).getObject('XWiki.PDFClass'))
+  #set ($pdfTemplate = $xwiki.getSpacePreference('colorTheme'))
+#else
+  #set ($pdfTemplate = 'PhenoTips.PatientSheetCode')
+#end
+#if ($isAdvancedUser &amp;&amp; $hasEdit &amp;&amp; !$isReadOnly)
+$xwiki.jsx.use('PhenoTips.JSONImportDialog')##
+$xwiki.ssx.use('PhenoTips.JSONImportDialog')##
+** (% class="empty" %)----
+** (% class="json-import single-patient-import" %){{html clean="false"}}&lt;a href="#" name="single_patient_import"&gt;$services.localization.render('phenotips.contentTopMenu.moreActionsMenu.importJSON')&lt;/a&gt;{{/html}}
+#end
+** (% class="empty" %)----
+** [[$services.localization.render('phenotips.contentTopMenu.moreActionsMenu.exportPDF')&gt;&gt;path:$doc.getURL('export', "format=pdf&amp;pdfcover=0&amp;pdftoc=0&amp;pdftemplate=${pdfTemplate}")|| class="export-link"]]
+#if($isAdvancedUser)
+#if ($hasAdmin)
+** [[$services.localization.render('phenotips.contentTopMenu.moreActionsMenu.exportXAR')&gt;&gt;path:$doc.getURL('export', "format=xar&amp;name=${doc.fullName}&amp;pages=${doc.fullName}")|| class="export-link"]]
+#end
+** [[$services.localization.render('phenotips.contentTopMenu.moreActionsMenu.exportJSON')&gt;&gt;path:$xwiki.getURL('PhenoTips.ExportPatient', 'get', "id=${escapetool.url($doc.documentReference.name)}&amp;outputSyntax=plain")|| class="export-link"]]
+#end## isAdvancedUser
+#foreach ($e in $services.uix.getExtensions("org.phenotips.patientRecordMenu.moreActions"))
+  #set ($extensionContent = $services.rendering.render($e.execute(), 'xhtml/1.0'))
+  #if ($stringtool.isNotBlank($extensionContent))
+    #if (!$foreach.hasContent)
+      ** ----
+      #set ($foreach.hasContent = true)
+    #end
+    ** {{html clean=false}}$extensionContent{{/html}}
+  #end
+#end
+)))## menu
+)))## container
+#elseif ($doc.name == 'AllData' &amp;&amp; $xcontext.action == 'view')
+$xwiki.jsx.use('PhenoTips.ContentTopMenu')##
+(% id="patient-directory-actions" class="content-actions directory-actions" %)(((
+(% id="pd-more-actions-menu" class="menu menu-horizontal" %)(((
+#if($hasCreatePage)
+$xwiki.jsx.use('PhenoTips.JSONImportDialog')##
+$xwiki.ssx.use('PhenoTips.JSONImportDialog')##
+* {{html}}&lt;label for="create-patient-record"&gt;&lt;span class="fa fa-plus-circle"&gt; &lt;/span&gt;$services.localization.render('phenotips.globalHeader.createPatient')&lt;/label&gt;{{/html}}(% class="hidden" %)((({{include reference="PhenoTips.CreatePatientRecordForm" /}})))
+* #__icon("upload") {{html}}&lt;label for="phenotips_json_import"&gt;&lt;span class="upload"&gt; &lt;/span&gt;&lt;a href="#" id="phenotips_json_import" class="json-import multi-patient-import" title="$services.localization.render('phenotips.allData.menu.import.json.tooltip')" role="button"&gt;$services.localization.render('phenotips.allData.menu.import.json')&lt;/a&gt;&lt;/label&gt;{{/html}}
+#end
+* (% class="xDropdown" %)#__icon("download") $services.localization.render('phenotips.allData.menu.export')
+** [[$services.localization.render('phenotips.allData.menu.export.excel')&gt;&gt;path:$xwiki.getURL('PhenoTips.Export', 'get', "space=${escapetool.url($doc.space)}&amp;amp;outputSyntax=plain")|| id="phenotips_export" class="phenotips_export_tool" title="$services.localization.render('phenotips.allData.menu.export.excel.tooltip')"]]
+** [[$services.localization.render('phenotips.allData.menu.export.json')&gt;&gt;path:$xwiki.getURL('PhenoTips.ExportJSON', 'get', "space=${escapetool.url($doc.space)}&amp;amp;outputSyntax=plain")|| id="phenotips_json_export" class="phenotips_export_tool" title="$services.localization.render('phenotips.allData.menu.export.json.tooltip')"]]
+#set ($service = $services.pushPatient)##
+#set ($configuredServers = $service.getPushTargetsWithHistory(""))##
+#if ($configuredServers.size() &gt; 0)
+  #if ($configuredServers.size() == 1)
+    #set ($indent = "* #__icon('share')")
+  #else
+    #set ($indent = '**')
+* (% class="xDropdown" %)#__icon("share") $services.localization.render('phenotips.allData.menu.push.toAnotherDB')
+  #end
+#foreach ($mapEntry in $configuredServers.entrySet())##
+  #set ($serverName = $mapEntry.key.getServerID())##
+${indent} {{html wiki=false clean=false}}&lt;a href="#" id="pushall-server-${foreach.index}" name="$serverName" title="$services.localization.render('phenotips.allData.menu.push.tooltip', [$serverName])"&gt;$services.localization.render('phenotips.allData.menu.push', [$serverName])&lt;/a&gt;{{/html}}
+#end##
+#end##
+)))
+)))
+#end{{/velocity}}</content>
+    </property>
+    <property>
+      <extensionPointId>org.phenotips.content.top:data</extensionPointId>
+    </property>
+    <property>
+      <name>org.phenotips.patientSheet.menu</name>
+    </property>
+    <property>
+      <parameters>title=Patient sheet top menu
+order=1</parameters>
+    </property>
+    <property>
+      <scope>wiki</scope>
+    </property>
+  </object>
+</xwikidoc>

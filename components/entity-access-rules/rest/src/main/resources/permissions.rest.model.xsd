@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/
+-->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="https://phenotips.org/rest-permissions/"
+  xmlns:ptperm="https://phenotips.org/rest-permissions/" elementFormDefault="qualified" xmlns:ptcommons="https://phenotips.org/rest-commons/">
+
+  <import namespace="https://phenotips.org/rest-commons/" schemaLocation="https://phenotips.org/rest-commons.model.xsd"/>
+
+  <complexType name="UserSummary">
+    <complexContent>
+      <extension base="ptcommons:LinkCollection">
+        <sequence>
+          <element name="id" type="string"/>
+          <element name="name" type="string"/>
+          <element name="email" type="string"/>
+          <element name="type" type="string"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <complexType name="OwnerSummary">
+    <complexContent>
+      <extension base="ptperm:UserSummary"/>
+    </complexContent>
+  </complexType>
+
+  <complexType name="CollaboratorRepresentation">
+    <complexContent>
+      <extension base="ptperm:UserSummary">
+        <sequence>
+          <element name="level" type="string"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <complexType name="CollaboratorsCollection">
+    <complexContent>
+      <extension base="ptcommons:LinkCollection">
+        <sequence>
+          <element name="collaborator" type="ptperm:CollaboratorRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <complexType name="VisibilitySummary">
+    <complexContent>
+      <extension base="ptcommons:LinkCollection">
+        <sequence>
+          <element name="level" type="string"/>
+          <element name="label" type="string"/>
+          <element name="description" type="string"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <complexType name="VisibilityOptions">
+    <complexContent>
+      <extension base="ptcommons:LinkCollection">
+        <sequence>
+          <element name="visibility" type="ptperm:VisibilitySummary" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <complexType name="PermissionsSummary">
+    <complexContent>
+      <extension base="ptcommons:LinkCollection">
+        <sequence>
+          <element name="owner" type="ptperm:OwnerSummary"/>
+          <element name="visibility" type="ptperm:VisibilitySummary"/>
+          <element name="collaborators" type="ptperm:CollaboratorsCollection"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <complexType name="PrincipalSummary">
+    <complexContent>
+      <extension base="ptperm:CollaboratorRepresentation">
+        <sequence>
+          <element name="role" type="string"/>
+          <element name="group" type="string"/>
+          <element name="url" type="string"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <complexType name="PrincipalsCollection">
+    <complexContent>
+      <extension base="ptcommons:LinkCollection">
+        <sequence>
+          <element name="principal" type="ptperm:PrincipalSummary" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <!--
+  *
+  * ELEMENTS
+  *
+  -->
+
+  <element name="ownerRepresentation" type="ptperm:OwnerSummary"/>
+
+  <element name="visibilityRepresentation" type="ptperm:VisibilitySummary"/>
+
+  <element name="collaboratorsRepresentation" type="ptperm:CollaboratorsCollection"/>
+
+  <element name="visibilityOptionsRepresentation" type="ptperm:VisibilityOptions"/>
+
+  <element name="permissionsRepresentation" type="ptperm:PermissionsSummary"/>
+
+  <element name="principalRepresentation" type="ptperm:PrincipalSummary"/>
+
+  <element name="principalsRepresentation" type="ptperm:PrincipalsCollection"/>
+
+</schema>

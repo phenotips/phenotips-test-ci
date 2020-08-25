@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/
+-->
+
+<xwikidoc version="1.1">
+  <web>PhenoTips</web>
+  <name>PanelsDisplay</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <creationDate>1480524466000</creationDate>
+  <parent>PhenoTips.PatientSheet</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1480615212000</date>
+  <contentUpdateDate>1480533935000</contentUpdateDate>
+  <version>1.1</version>
+  <title/>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>true</hidden>
+  <content/>
+  <object>
+    <name>PhenoTips.PanelsDisplay</name>
+    <number>0</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>83165d91-a3fd-47e6-bdb0-dceef275f8e8</guid>
+    <class>
+      <name>XWiki.JavaScriptExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>var PhenoTips = (function(PhenoTips) {
+  var widgets = PhenoTips.widgets = PhenoTips.widgets || {};
+
+  widgets.PanelsDisplay = Class.create({
+    'param' : {},
+    'baseUrl' : '',
+    'resultsToShow' : 10,
+    'presentParamLabel' : 'present-term',
+    'absentParamLabel' : 'absent-term',
+    'rejectedGenesLabel' : 'rejected-gene',
+    'excludeRejected' : true,
+    'GENE_PREFIX' : 'HGNC:',
+
+    /**
+     * Generates results for the first page based on new data provided.
+     * @param parameters the query parameters. Supported parameters are as follows:
+     *        "symptom" the symptoms that were found to be present.
+     *        "not_symptom" the symptoms that were found to be absent.
+     * @param resultsToShow the number of results to show; uses the default value if null
+     */
+    paginate : function(parameters, resultsToShow) {
+      this.geneCache = parameters.rejected_gene || [];
+      this.param[this.presentParamLabel] = parameters.symptom || [];
+      this.param[this.absentParamLabel] = parameters.not_symptom || [];
+
+      this.resultsToShow = resultsToShow || this.resultsToShow;
+      this.updateLiveTable();
+    },
+
+    /**
+     * Prompts redrawing of the LiveTable, by providing a new url with the updated parameters.
+     * @param parameters the query parameters. Supported parameters are as follows:
+     *        "symptom" the symptoms that were found to be present.
+     *        "not_symptom" the symptoms that were found to be absent.
+     */
+    updateLiveTable : function() {
+      this.service.target.__hiddenParent &amp;&amp; this.service.target.__hiddenParent.removeClassName('hidden');
+      if (this.table) {
+        this.table.updatePostParam(this.param);
+      } else {
+        var options = {'limit' : this.resultsToShow};
+        this.table = new PhenoTips.widgets.GenePanelsLiveTable(this.baseUrl, this.param, 'panels-livetable', this.buildRow.bind(this), options);
+      }
+    },
+
+    /**
+     * Builds a LiveTable row from the provided {@code dataObj json}.
+     */
+    buildRow : function(dataObj, idx, table) {
+      // Create all nodes.
+      var dataRow = new Element('tr');
+      var geneSymbolCol = new Element('td', {'class' : 'livetable-display-gene-col'});
+      var phenotypesCol = new Element('td', {'class' : 'livetable-display-phenotypes-col'});
+      dataRow.insert(geneSymbolCol).insert(phenotypesCol);
+
+      this.populateGeneSymbolCol(geneSymbolCol, dataObj);
+      this.populatePhenotypesCol(phenotypesCol, dataObj);
+
+      dataRow.toggleClassName('rejected', this.excludeRejected &amp;&amp;
+        (this.geneCache.indexOf(this.GENE_PREFIX + dataObj.gene_id) > -1 || this.geneCache.indexOf(this.GENE_PREFIX + dataObj.gene_symbol) > -1));
+
+      return dataRow;
+    },
+
+    populateGeneSymbolCol : function(colElem, dataObj) {
+      var geneName = dataObj.gene_symbol;
+      var geneId = dataObj.gene_id;
+
+      var geneSymbolElem = new Element('span', {'class' : 'gene-symbol', 'title' : geneName}).insert(geneName);
+      var geneIdElem = new Element('span', {'class' : 'gene-id hidden'}).insert(geneId);
+
+      colElem.insert(geneSymbolElem).insert(geneIdElem);
+
+      if (typeof(this.service.tooltip) != 'undefined') {
+        var icon = new Element('span', {'class' : 'xHelpButton fa fa-info-circle ' + this.service.tooltip, 'title' : geneName});
+        new PhenoTips.widgets.HelpButton(icon);
+        colElem.insert(icon);
+      }
+    },
+
+    populatePhenotypesCol : function(colElem, dataObj) {
+      var terms = dataObj.terms;
+      var featureNames = this.getFeatureNames(terms);
+      var featureIds = this.getFeatureIDs(terms);
+      var count = dataObj.count;
+
+      var featureNamesElem = new Element('span', {'class' : 'feature-names'}).insert(featureNames);
+      var featureIdsElem = new Element('span', {'class' : 'feature-ids hidden'}).insert(featureIds);
+      var featureCountElem = new Element('span', {'class' : 'feature-count hidden'}).insert(count);
+
+      colElem.insert(featureNamesElem).insert(featureIdsElem).insert(featureCountElem);
+    },
+
+    /**
+     * Retrieves the features' names.
+     * @param terms a list of term objects
+     * @return {string} a list of features' names as a semicolon separated string
+     */
+    getFeatureNames : function(terms) {
+      return terms.map(function(term) {
+        return term["name_translated"] || term.name;
+      }).join("; ");
+    },
+
+    /**
+     * Retrieves the features' HPO IDs.
+     * @param terms a list of term objects
+     * @return {string} a list of HPO IDs as a semicolon separated string
+     */
+    getFeatureIDs : function(terms) {
+      return terms.map(function(term) {
+        return term.id;
+      }).join("; ");
+    },
+
+    /**
+     * Creates the containers for displaying the results.
+     */
+    createResultsContainers : function() {
+      this.attachDownloadListeners();
+      this.attachChangeListeners();
+      this.attachCheckBoxListeners();
+    },
+
+    attachChangeListeners : function() {
+      var _this = this;
+      document.on("xwiki:livetable:panels-livetable:loadingComplete", function(event) {
+        if (event.memo &amp;&amp; event.memo.status &amp;&amp; event.memo.status == 204) {
+          _this.table.clearDisplay();
+          _this.table.clearCache();
+          _this.service.target.__hiddenParent &amp;&amp; _this.service.target.__hiddenParent.addClassName('hidden');
+        }
+      });
+    },
+
+    attachDownloadListeners : function() {
+      var _this = this;
+      this.saveButton &amp;&amp; this.saveButton.observe('click', function(event) {
+        event.stop();
+        // If rejected genes are to be excluded, do not include them in downloaded tsv.
+        var param = Object.clone(_this.param);
+        _this.excludeRejected &amp;&amp; (param[_this.rejectedGenesLabel] = _this.geneCache);
+        Event.fire(document, 'panels:export:requested', {'param' : param, 'service' : _this.service});
+      });
+    },
+
+    attachCheckBoxListeners : function() {
+      var _this = this;
+      this.checkBox &amp;&amp; this.checkBox.observe('change', function(event) {
+        _this.excludeRejected = _this.checkBox.checked;
+
+        _this.updateLiveTable.bind(_this)();
+      });
+    },
+
+    extendLiveTable : function() {
+      if (XWiki.widgets &amp;&amp; XWiki.widgets.LiveTable) {
+        var widgets = PhenoTips.widgets = PhenoTips.widgets || {};
+        widgets.GenePanelsLiveTable = Class.create(XWiki.widgets.LiveTable, {
+          initialize: function($super, url, postParam, domNodeName, handler, options) {
+            this.postParam = postParam;
+            $super(url, domNodeName, handler, options);
+          }
+        });
+        widgets.GenePanelsLiveTable.addMethods({
+          updatePostParam : function(param) {
+            this.clearCache();
+            this.postParam = param;
+            this.showRows(1, this.limit, null);
+          },
+
+          getRows: function($super, reqOffset, reqLimit, displayOffset, displayLimit, delay)
+          {
+            var self = this;
+
+            if (this.nextRequestTimeoutId) {
+              // If a request was queued previously, cancel it
+              window.clearTimeout(this.nextRequestTimeoutId);
+              delete this.nextRequestTimeoutId;
+            }
+
+            var doRequest = function(){
+
+              var url =  self.getUrl + '?with-match-count=true&amp;offset='+reqOffset+'&amp;limit='+reqLimit+'&amp;reqNo='+ (++self.sendReqNo);
+
+              // Let code know the table is about to load new entries.
+              // 1. Named event (for code interested by that table only)
+              document.fire("xwiki:livetable:" + this.domNodeName + ":loadingEntries");
+              // 2. Generic event (for code potentially interested in any livetable)
+              document.fire("xwiki:livetable:loadingEntries", {
+                "tableId" : this.domNodeName
+              });
+
+              var ajx = new Ajax.Request(url,
+              {
+                method: 'POST',
+                parameters: self.postParam,
+                contentType: 'application/x-www-form-urlencoded',
+                onComplete: function( transport ) {
+                  // Let code know loading is finished
+                  // 1. Named event (for code interested by that table only)
+                  document.fire("xwiki:livetable:" + self.domNodeName + ":loadingComplete", {
+                    "status" : transport.status
+                  });
+                  // 2. Generic event (for code potentially interested in any livetable)
+                  document.fire("xwiki:livetable:loadingComplete", {
+                    "status" : transport.status,
+                    "tableId" : self.domNodeName
+                  });
+
+                  self.loadingStatus.addClassName("hidden");
+                },
+                onSuccess: function( transport ) {
+                  var res = eval( '(' + transport.responseText + ')');
+
+                  if (res.reqNo &lt; self.sendReqNo) {
+                    return;
+                  }
+
+                  self.recvReqNo = res.reqNo;
+
+                  if (self.tagCloud &amp;&amp; res.matchingtags) {
+                    self.tagCloud.updateTagCloud(res.tags, res.matchingtags);
+                  }
+
+                  // Let code know new entries arrived
+                  // 1. Named event (for code interested by that table only)
+                  document.fire("xwiki:livetable:" + self.domNodeName + ":receivedEntries", {
+                    "data" : res
+                  });
+                  // 2. Generic event (for code potentially interested in any livetable)
+                  document.fire("xwiki:livetable:receivedEntries", {
+                    "data" : res,
+                    "tableId" : self.domNodeName
+                  });
+                  // 3. Match count named event (for code interested by that table only)
+                  res.matchCount &amp;&amp; document.fire("phenotips:" + self.domNodeName + ":receivedMatchCount", {
+                    "data" : res.matchCount
+                  });
+
+                  self.updateFetchedRows(res);
+                  self.displayRows(displayOffset, displayLimit);
+                }
+              });
+
+            }
+
+            // Make sure to set show the loading as soon as possible (instead of waiting the delay for the actual ajax request)
+            // so that it really reflect the status of the livetable
+            self.loadingStatus.removeClassName("hidden");
+
+            if (typeof delay != 'undefined' &amp;&amp; delay &gt; 0) {
+              // fire the request after a withdrawal period in which it can be cancelled
+              this.nextRequestTimeoutId = Function.delay.call(doRequest, delay);
+            }
+            else {
+              // no withdrawal period
+              doRequest();
+            }
+          },
+
+          // Compensates for LiveTable bug where the offset is set to be larger than the total number of entries.
+          showRows : function($super, offset, limit, delay) {
+            var newLimit = limit;
+            var newOffset = offset;
+            if (this.totalRows != -1) {
+              offset &gt; this.totalRows &amp;&amp; (newOffset = 1);
+              var diff = this.totalRows - (newOffset + limit);
+              diff &lt; 0 &amp;&amp; (newLimit = limit + diff + 1);
+            }
+            $super(newOffset, newLimit, delay);
+          }
+        });
+      }
+    },
+
+    /**
+     * Creates the results containers inside of the specified parent container.
+     *
+     * @param service the search service linking to all the relevant data objects
+     * @param saveButton for the data
+     */
+    initialize : function(service, saveButton) {
+      if (!service) {return;}
+      this.extendLiveTable();
+      this.service = service;
+      this.baseUrl = service.script + "/livetable";
+      this.saveButton = saveButton;
+      this.checkBox = $('excludeRejectedGenesCheckBox');
+      this.checkBox &amp;&amp; (this.checkBox.checked = true);
+      this.createResultsContainers();
+    }
+  });
+  return PhenoTips;
+}(PhenoTips || {}));
+</code>
+    </property>
+    <property>
+      <name>Gene panels paginated display of data</name>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>onDemand</use>
+    </property>
+  </object>
+  <object>
+    <name>PhenoTips.PanelsDisplay</name>
+    <number>0</number>
+    <className>XWiki.StyleSheetExtension</className>
+    <guid>21f274de-6339-4c80-ab4e-4970d98a24d9</guid>
+    <class>
+      <name>XWiki.StyleSheetExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <contentType>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>contentType</name>
+        <number>6</number>
+        <prettyName>Content Type</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>CSS|LESS</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </contentType>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>#template("colorThemeInit.vm")
+#genePanelsExport {
+  font-size: .65em;
+}
+
+#panels-livetable {
+  width: 100%;
+}
+
+#panels-livetable .xwiki-livetable-display-container td {
+  text-align: left;
+}
+
+#genePanelsExcludeGenesWrapper {
+  text-transform: capitalize;
+  color: $theme.textColor;
+  float: right;
+}
+
+#genePanelsExcludeGenesWrapper label {
+  width: 100%;
+  display: inline;
+  padding-left: .3em;
+}
+
+#panels-livetable tbody.xwiki-livetable-display-body tr:hover,
+#panels-livetable tbody.xwiki-livetable-display-body tr.rowHover {
+  background-color: $theme.backgroundSecondaryColor;
+}
+
+#panels-livetable input.button,
+#panels-livetable .buttonwrapper button,
+#panels-livetable .buttonwrapper a:visited,
+#panels-livetable .buttonwrapper a:link,
+#panels-livetable .buttonwrapper a:active {
+  color: $theme.buttonPrimaryTextColor !important;
+}
+
+#panels-livetable thead tr th {
+  text-align: left;
+}
+
+#panels-livetable .pagesizeselect {
+  vertical-align: middle;
+}
+
+#panels-livetable-pagesize {
+  float: left;
+}
+
+.livetable-display-gene-col {
+  width: 15em;
+  font-size: .85em;
+  font-weight: bold;
+}
+
+#panels-livetable-display .rejected {
+  text-decoration: line-through;
+}
+
+#panels-livetable-display .rejected > td {
+  color: $theme.textSecondaryColor;
+}
+
+.livetable-display-phenotypes-col .feature-names {
+  font-size: .8em;
+}
+
+.livetable-display-gene-col .xHelpButton.fa.fa-info-circle.gene-info {
+  padding-left: 6px;
+}
+
+ /* Gene panels don't take negative phenotype into account when suggesting genes.
+  * Since the code generating the terms used in instant searches is generic for all
+  * services, here we're hiding the negative phenotypes in the gene panels instant
+  * search box specifically.
+  * */
+.instant-search.gene-panels-search-box .default-search-terms-container .not_symptom {
+  display: none;
+}</code>
+    </property>
+    <property>
+      <contentType>CSS</contentType>
+    </property>
+    <property>
+      <name>Gene panels paginated data display styles</name>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>onDemand</use>
+    </property>
+  </object>
+</xwikidoc>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/
+-->
+
+<xwikidoc version="1.1">
+  <web>PhenoTips</web>
+  <name>PedigreeInterface</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <creationDate>1426733142000</creationDate>
+  <parent>PhenoTips.WebHome</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1426735073000</date>
+  <contentUpdateDate>1426735073001</contentUpdateDate>
+  <version>1.1</version>
+  <title>PedigreeInterface</title>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>false</hidden>
+  <content>{{include reference="PhenoTips.StudiesMacros"/}}
+
+{{velocity}}
+#macro(__convertToBooleanString $value)
+  #if ($value == "1")
+    true##
+  #else
+    false##
+  #end
+#end
+#macro(__getDisabledFields)
+  #set ($recordConfiguration = $services.recordConfiguration.getConfiguration("patient"))
+  #set ($disabledFieldNames = [])
+  #set ($discard = $disabledFieldNames.addAll($recordConfiguration.allFieldNames))
+  #set ($discard = $disabledFieldNames.removeAll($recordConfiguration.enabledFieldNames))
+  #set ($linkedFields = {
+    "external_id": ["external_id"],
+    "first_name": ["first_name"],
+    "last_name": ["last_name", "last_name_birth"],
+    "gender": ["gender"],
+    "date_of_birth": ["date_of_birth"],
+    "date_of_death": ["date_of_death"],
+    "phenotype": ["hpo_positive"],
+    "negative_phenotype" : ["hpo_negative"],
+    "omim_id" : ["disorders"],
+    "gestation" : ["gestation_age"],
+    "gene" : ["candidate_genes", "causal_genes", "carrier_genes", "rejected_genes", "rejected_candidate_genes"]
+  })
+  #set ($discard = $disabledFieldNames.retainAll($linkedFields.keySet()))
+  #set ($disabled = [])
+  #foreach ($f in $disabledFieldNames)
+    #set ($discard = $disabled.addAll($linkedFields.get($f)))
+  #end
+  $jsontool.serialize($disabled)##
+#end
+#macro(__getRequiredFields)
+  #set ($recordConfiguration = $services.recordConfiguration.getConfiguration("patient"))
+  #set ($requiredFieldNames = [])
+  #foreach ($section in $recordConfiguration.enabledSections)
+    #foreach ($element in $section.enabledElements)
+      #set ($extension_required = ($element.extension.getParameters().get('required') == 'true'))
+      #if ($extension_required)
+        #set($fields = $element.extension.getParameters().get('fields').split("\s*,\s*"))
+        #foreach ($field in $fields)
+          #set ($discard = $requiredFieldNames.add($field))
+        #end
+      #end
+    #end
+  #end
+  ## TODO: the mapping of pedigree to PT fields is also hardcoded in the #__getDisabledFields macro above,
+  ## but using the same mapping does not work, because e.g. if "last_name" is disabled in PT both
+  ## ["last_name", "last_name_birth"] should be disabled in pedigree, but if "last_name" is required in PT
+  ## only "last_name" should be required in pedigree. Also there can be problems with genes which are
+  ## represented by multiple fields in pedigree, and so requiring that field is not supported for now
+  #set ($linkedFields = {
+    "external_id": ["external_id"],
+    "first_name": ["first_name"],
+    "last_name": ["last_name"],
+    "gender": ["gender"],
+    "date_of_birth": ["date_of_birth"],
+    "date_of_death": ["date_of_death"]
+  })
+  #set ($discard = $requiredFieldNames.retainAll($linkedFields.keySet()))
+  #set ($required = [])
+  #foreach ($f in $requiredFieldNames)
+    #set ($discard = $required.addAll($linkedFields.get($f)))
+  #end
+  $jsontool.serialize($required)##
+#end
+##
+##
+#macro(__getSerializedStudies)
+  ## getStudies() collects all available studies into the $studies variable
+  #__getStudies()##
+  #set($studiesWithDescription = [])
+  #foreach ($sName in $studies)
+    #set ($s = $xwiki.getDocument($sName))
+    #if (!$s.isNew())
+      #set ($config = $s.getObject('PhenoTips.StudyClass'))
+      #set ($configTitle = '')
+      #if ("$!{s.plainTitle}" != '')
+        #set ($configTitle = "$s.plainTitle")
+      #else
+        #set ($configTitle = "${s.name}")
+      #end
+      #set ($discard = $studiesWithDescription.add({"id": ${escapetool.xml($services.model.serialize($s.documentReference, 'default'))}, "name": $escapetool.xml($configTitle), "description": $!{escapetool.xml($s.content)}}))
+    #end
+  #end
+$jsontool.serialize($studiesWithDescription)##
+#end
+##
+##
+$response.setContentType('application/json')##
+{{html wiki="false" clean="false"}}
+##
+#if ("$!request.action" == '')
+  Action was not specified
+  #break
+#end
+##
+#if ("$!request.action" == "getPreferences")
+  #set($user = $!{xwiki.getDocument($xcontext.getUser()).getObject('XWiki.XWikiUsers')})##
+  #set($config = $!{xwiki.getDocument('XWiki.XWikiPreferences').getObject('PhenoTips.PedigreeGlobalSettings')})##
+  #set($configEid = $xwiki.getDocument('XWiki.XWikiPreferences').getObject('PhenoTips.LabeledIdentifierGlobalSettings'))##
+  #set($configPT = $xwiki.getDocument('data.WebHome').getObject('PhenoTips.DBConfigurationClass'))##
+  { "user": {
+        "firstName" : "$!{escapetool.json($user.getProperty('first_name').value)}",
+        "lastName" : "$!{escapetool.json($user.getProperty('last_name').value)}",
+        "hideDraggingHint": false,
+        "advancedUser": $isAdvancedUser
+    },
+    "global": {
+            "disabledFields"               : #__getDisabledFields(),
+            "requiredFields"               : #__getRequiredFields(),
+            "replaceIdWithExternalID"      : #if ($configPT &amp;&amp; "$!{configPT.getProperty('hideInternalIds').value}" == '1')true#else false#end,
+            "studies"                      : #__getSerializedStudies()
+        #if ($configEid)
+            ,
+            "uniqueExternalID"             : #__convertToBooleanString("$!{configEid.getProperty('validateExternalId').value}")
+        #end
+        #if ($config)
+            ,
+            "dateDisplayFormat"            : "$!{config.getProperty('dateDisplayFormat').value}",
+            "dateEditFormat"               : "$!{config.getProperty('dateInputFormat').value}",
+            "nonStandardAdoptedOutGraphic" : #__convertToBooleanString("$!{config.getProperty('nonStandardAdoptedOutGraphic').value}"),
+            "propagateFatherLastName"      : #__convertToBooleanString("$!{config.getProperty('propagateFatherLastName').value}"),
+            "lineStyle"                    : "$!{config.getProperty('lineStyle').value}"
+        #end
+    },
+    "phenotipsVersion": "$!{services.extension.getCoreExtension('org.phenotips:patient-data-api').id.version}"
+  }
+#else
+  Unknown action
+#end{{/velocity}}</content>
+</xwikidoc>

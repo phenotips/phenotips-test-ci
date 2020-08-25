@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/
+-->
+
+<xwikidoc version="1.1">
+  <web>PhenoTips</web>
+  <name>Translations</name>
+  <language>de</language>
+  <defaultLanguage>en</defaultLanguage>
+  <translation>1</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <creationDate>1401822201000</creationDate>
+  <parent>PhenoTips.WebHome</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1401822201000</date>
+  <contentUpdateDate>1401822201000</contentUpdateDate>
+  <version>1.1</version>
+  <title>Translations</title>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>plain/1.0</syntaxId>
+  <hidden>true</hidden>
+  <content>admin.workgroups=Arbeitsgruppen
+admin.studies=Studien
+
+saveandview=Speichern und Zusammenfassung anzeigen
+saveandcontinue=Schnellspeichern
+cancel=Änderungen nach dem letzten speichern löschen
+
+phenotips.profile.preferences=PhenoTips Einstellungen
+phenotips.profile.preferences.mapping=Bevorzugte Zuordnung
+
+XWiki.XWikiUsers_company=Mitgliedschaft
+XWiki.XWikiUsers_comment=Über
+
+core.widgets.confirmationBox.button.cancel=Abbrechen
+
+phenotips.globalHeader.allData=Alle Patienten durchsuchen
+phenotips.globalHeader.search.placeholder=Suche…
+
+phenotips.PatientPhenotyoeExportService.cantFindPatientError=ID nicht gefunden.
+phenotips.SuggestPatientService.serviceInfo=Dieser Service ermöglicht es Suchergebnisse für die Suggest-UI-Komponente abrufen. Beispiel\: {0}
+phenotips.UIXDirectory.noNameError=Bitte geben Sie einen Namen der Erweiterung ein
+phenotips.UIXDirectory.nameExistsError=Eine Erweiterung namens "{0}" existiert bereits. Bitte wählen Sie einen anderen Namen
+phenotips.UIXDirectory.newExtension.label=Name der neuen Erweiterung\:
+phenotips.UIXDirectory.newExtension.placeholder=Z.B. mein Widget
+phenotips.UIXDirectory.options.edit=Diese Erweiterung bearbeiten
+phenotips.UIXDirectory.options.history=Änderungsverlauf anzeigen
+phenotips.UIXDirectory.options.copy=Kopieren
+phenotips.UIXDirectory.options.rename=Umbenennen
+phenotips.UIXDirectory.options.download=Diese Erweiterung als Xar exportieren
+phenotips.UIXDirectory.options.delete=Diese Erweiterung löschen
+phenotips.UIXDirectory.newExtension.create=Anlegen
+phenotips.UIXDirectory.sortedBy=Nach {0} sortiert
+phenotips.UIXDirectory.sortBy=Sortiere nach {0}</content>
+</xwikidoc>
